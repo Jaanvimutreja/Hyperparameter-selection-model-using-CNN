@@ -2,15 +2,7 @@
 app.py
 ------
 Full-control Streamlit frontend for the HPSM Meta-Learning Framework.
-
-Tabs:
-  1. Upload Dataset — upload CSV, preview, recommend HP, train & evaluate
-  2. System Controls — run pipeline, train, evaluate, test, verify
-  3. Experiments — view plots and result tables
-  4. Logs — live log viewer
-  5. About — project info
-
-Run with:  streamlit run frontend/app.py
+Includes a highly professional, interactive, and explanatory Canva-like UI.
 """
 
 import os
@@ -36,11 +28,11 @@ if PROJECT_ROOT not in sys.path:
 from backend.feature_extraction import extract_and_reshape, MATRIX_SIZE
 from backend.hyperparameter_search import PARAM_GRID, get_config_by_index, NUM_CONFIGS
 from backend.recommend import recommend_hyperparameters, recommend_top_k, DEFAULT_MODEL_PATH
-from frontend.actions import (
-    run_full_pipeline, run_training, run_evaluation,
-    run_tests, run_verification, get_job, is_job_running,
-)
+
 from sklearn.svm import SVC
+from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import cross_val_score, train_test_split
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 from sklearn.metrics import confusion_matrix, classification_report
@@ -58,100 +50,195 @@ st.set_page_config(
     page_title="HPSM — Hyperparameter Meta-Learner",
     page_icon="⚡",
     layout="wide",
-    initial_sidebar_state="collapsed",
+    initial_sidebar_state="expanded",
 )
 
 # ---------------------------------------------------------------------------
-# Custom CSS
+# Custom CSS (Retaining existing color scheme, upgrading Canva-like layout)
 # ---------------------------------------------------------------------------
 st.markdown("""
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
     html, body, [class*="css"] { font-family: 'Inter', sans-serif; }
 
+    /* Main Typography */
     .main-header {
-        font-size: 2.4rem;
-        font-weight: 700;
+        font-size: 2.8rem;
+        font-weight: 800;
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        margin-bottom: 0rem;
+        margin-bottom: 0.5rem;
+        letter-spacing: -1px;
     }
     .sub-header {
-        font-size: 1rem;
-        color: #888;
-        margin-bottom: 1.5rem;
+        font-size: 1.1rem;
+        color: #555;
+        font-weight: 400;
+        margin-bottom: 2rem;
+        line-height: 1.6;
     }
-    .metric-card {
-        background: linear-gradient(135deg, #667eea18 0%, #764ba218 100%);
-        border-radius: 14px;
-        padding: 1.2rem 1rem;
-        text-align: center;
-        border: 1px solid #667eea30;
-        transition: transform 0.15s ease;
+    
+    /* Layout Containers */
+    .step-container {
+        background-color: #ffffff;
+        border-radius: 16px;
+        padding: 24px;
+        margin-bottom: 24px;
+        border-left: 6px solid #667eea;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
-    .metric-card:hover { transform: translateY(-2px); }
-    .metric-value {
-        font-size: 2rem;
+    .step-container:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    }
+    .step-title {
+        font-size: 1.4rem;
         font-weight: 700;
+        color: #333;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    /* Info and Help Boxes */
+    .info-box {
+        background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+        border-radius: 12px;
+        padding: 16px 20px;
+        border-left: 4px solid #764ba2;
+        color: #374151;
+        font-size: 0.95rem;
+        margin-bottom: 20px;
+        line-height: 1.5;
+    }
+    .highlight-text {
+        font-weight: 600;
         color: #667eea;
     }
+
+    /* Metric Cards */
+    .metric-card {
+        background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+        border-radius: 16px;
+        padding: 1.5rem 1rem;
+        text-align: center;
+        border: 1px solid #667eea30;
+        transition: transform 0.2s ease;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .metric-card:hover { transform: translateY(-4px); box-shadow: 0 6px 15px rgba(102, 126, 234, 0.15); }
+    .metric-value {
+        font-size: 2.2rem;
+        font-weight: 800;
+        color: #667eea;
+        line-height: 1.2;
+    }
     .metric-label {
-        font-size: 0.82rem;
-        color: #999;
-        margin-top: 0.2rem;
-    }
-    .status-ok { color: #2ecc71; font-weight: 600; }
-    .status-fail { color: #e74c3c; font-weight: 600; }
-    .status-run { color: #f39c12; font-weight: 600; }
-    .control-btn button {
-        width: 100%;
-        border-radius: 10px;
-    }
-    .stTabs [data-baseweb="tab-list"] { gap: 6px; }
-    .stTabs [data-baseweb="tab"] {
-        border-radius: 10px 10px 0 0;
-        padding: 10px 22px;
+        font-size: 0.9rem;
         font-weight: 500;
+        color: #666;
+        margin-top: 0.5rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
     }
+    
+    /* Status indicators */
+    .status-ok { color: #10b981; font-weight: 700; font-size: 1.1rem; }
+    .status-fail { color: #ef4444; font-weight: 700; font-size: 1.1rem; }
+    .status-run { color: #f59e0b; font-weight: 700; font-size: 1.1rem; }
+    
+    /* Tabs Redesign */
+    .stTabs [data-baseweb="tab-list"] { 
+        gap: 8px; 
+        background-color: #f8fafc;
+        padding: 10px 10px 0 10px;
+        border-radius: 16px 16px 0 0;
+    }
+    .stTabs [data-baseweb="tab"] {
+        border-radius: 12px 12px 0 0;
+        padding: 12px 24px;
+        font-weight: 600;
+        color: #64748b;
+        transition: all 0.2s;
+    }
+    .stTabs [data-baseweb="tab"]:hover {
+        background-color: #f1f5f9;
+        color: #667eea;
+    }
+    
+    /* Expanders */
     div[data-testid="stExpander"] {
-        border-radius: 12px;
-        border: 1px solid #eee;
+        border-radius: 14px;
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        background-color: #fff;
     }
+    div[data-testid="stExpander"] summary {
+        font-weight: 600;
+        font-size: 1.1rem;
+        color: #334155;
+    }
+    
+    /* Log Terminal */
     .log-box {
-        background: #1e1e1e;
-        color: #d4d4d4;
-        font-family: 'JetBrains Mono', 'Consolas', monospace;
-        font-size: 0.78rem;
-        padding: 1rem;
-        border-radius: 10px;
-        max-height: 400px;
+        background: #0f172a;
+        color: #e2e8f0;
+        font-family: 'JetBrains Mono', 'Fira Code', monospace;
+        font-size: 0.85rem;
+        padding: 1.5rem;
+        border-radius: 12px;
+        max-height: 500px;
         overflow-y: auto;
         white-space: pre-wrap;
-        word-break: break-all;
+        box-shadow: inset 0 2px 10px rgba(0,0,0,0.5);
     }
 </style>
 """, unsafe_allow_html=True)
 
 # ---------------------------------------------------------------------------
+# Sidebar specific
+# ---------------------------------------------------------------------------
+with st.sidebar:
+    st.image("https://cdn-icons-png.flaticon.com/512/2103/2103130.png", width=60) # placeholder logo
+    st.markdown('<div class="main-header" style="font-size: 1.8rem;">HPSM AI</div>', unsafe_allow_html=True)
+    st.caption("AutoML Hyperparameter Recommender")
+    st.divider()
+    
+    st.markdown("### 🧬 How it works")
+    st.info("""
+    **Zero-Shot Learning for Data**
+    Instead of training hundreds of models to find the best settings, HPSM looks at your dataset's **mathematical heartbeat** and instantly recommends the best algorithm and settings based on what it learned from 150+ diverse datasets!
+    """)
+    
+    model_exists = os.path.exists(DEFAULT_MODEL_PATH)
+    st.divider()
+    if model_exists:
+        st.success("✅ Brain is Active (Model Loaded)")
+    else:
+        st.error("❌ Brain is Offline (Train model first)")
+
+# ---------------------------------------------------------------------------
 # Header
 # ---------------------------------------------------------------------------
-st.markdown('<div class="main-header">⚡ HPSM — Hyperparameter Meta-Learner</div>', unsafe_allow_html=True)
-st.markdown('<div class="sub-header">Lightweight CNN-Based Meta-Learning for Fast Hyperparameter Recommendation</div>', unsafe_allow_html=True)
-
-model_exists = os.path.exists(DEFAULT_MODEL_PATH)
+st.markdown('<div class="main-header">⚡ HPSM Meta-Learning Studio</div>', unsafe_allow_html=True)
+st.markdown('<div class="sub-header">Instantly predict the most optimal Machine Learning Algorithm and Hyperparameters for any tabular dataset using deep Convolutional Neural Networks (CNNs). Stop guessing, start predicting.</div>', unsafe_allow_html=True)
 
 # ---------------------------------------------------------------------------
 # Tabs
 # ---------------------------------------------------------------------------
-tab_upload, tab_controls, tab_experiments, tab_logs, tab_knowledge, tab_about = st.tabs([
-    "📂 Upload & Predict",
-    "🎛️ System Controls",
-    "📊 Experiments",
-    "📋 Logs",
-    "🧠 Knowledge Base",
-    "ℹ️ About",
+tab_about, tab_interactive_pipeline, tab_experiments, tab_knowledge, tab_logs = st.tabs([
+    "🎓 Introduction & About",
+    "✨ Try It: Interactive Pipeline",
+    "📊 Experiment Results",
+    "🧠 The Knowledge Base",
+    "📋 Developer Logs"
 ])
 
 # ---------------------------------------------------------------------------
@@ -161,41 +248,87 @@ for key in ["X", "y", "df", "recommendation", "meta_matrix"]:
     if key not in st.session_state:
         st.session_state[key] = None
 
+# =====================================================================
+# TAB 1 — About & Introduction
+# =====================================================================
+with tab_about:
+    st.markdown("""
+    <div class="step-container">
+    <div class="step-title">👋 Welcome to HPSM: The End of Trial-and-Error ML</div>
+    
+    Normally, when you get a new dataset, you spend hours or days running **Grid Search** or **Random Search** to find out which algorithm (SVM, Random Forest, etc.) and what parameters work best. 
+    
+    HPSM completely bypasses this using **Meta-Learning** (learning to learn). 
+    </div>
+    """, unsafe_allow_html=True)
+
+    c1, c2 = st.columns(2)
+    with c1:
+        st.markdown("""
+        ### 🔍 How The AI Brain Works
+        1. **Feature Extraction**: We scan your dataset and extract 400 mathematical rules (called Meta-Features). These include statistical variance, class imbalance, skewness, entropy, and more.
+        2. **Image Transformation**: We convert these 400 features into a **20x20 pixel heat-map image**. Your dataset literally becomes a 2D picture!
+        3. **CNN Prediction**: A powerful Convolutional Neural Network (CNN) reads this "dataset picture". Because it has studied pictures of 150+ other datasets previously, it instantly predicts which of the **36 Algorithm Configurations** will yield the highest accuracy.
+        """)
+        
+    with c2:
+        st.markdown("""
+        ### 🤖 Supported Algorithms
+        Our AI can confidently recommend between 5 major algorithm families, completely tuned:
+        - **SVM** (Support Vector Machines)
+        - **RandomForest** (Ensemble trees)
+        - **GradientBoosting / XGBoost**
+        - **LogisticRegression**
+        - **KNN** (K-Nearest Neighbors)
+        
+        *Are you ready? Head over to the **✨ Try It** tab to test it yourself!*
+        """)
 
 # =====================================================================
-# TAB 1 — Upload & Predict
+# TAB 2 — Upload & Predict (Interactive Pipeline)
 # =====================================================================
-with tab_upload:
+def build_classifier(cfg):
+    """Refactored builder for the frontend pipeline"""
+    algo = cfg["algo"]
+    params = cfg["params"]
+    if algo == "SVM":
+        return SVC(kernel="rbf", max_iter=5000, **params)
+    elif algo == "RandomForest":
+        return RandomForestClassifier(random_state=42, n_jobs=-1, **params)
+    elif algo == "GradientBoosting":
+        return GradientBoostingClassifier(random_state=42, **params)
+    elif algo == "LogisticRegression":
+        return LogisticRegression(random_state=42, **params)
+    elif algo == "KNN":
+        return KNeighborsClassifier(**params)
+    return None
 
-    upload_col, summary_col = st.columns([1.2, 0.8])
+with tab_interactive_pipeline:
 
-    with upload_col:
-        st.header("Upload Your Dataset")
-        st.caption("Upload a CSV file. The **last column** is the target variable.")
-        uploaded = st.file_uploader("Choose a CSV file", type=["csv"], label_visibility="collapsed")
-
+    # --- STEP 1: UPLOAD ---
+    st.markdown('<div class="step-container"><div class="step-title">📌 Step 1: Upload Your Data</div>', unsafe_allow_html=True)
+    st.markdown('<div class="info-box">Upload any clean CSV dataset. <b>Rule:</b> The absolute last column in your file must be the target/label you want to predict.</div>', unsafe_allow_html=True)
+    
+    col_up1, col_up2 = st.columns([1, 1])
+    with col_up1:
+        uploaded = st.file_uploader("📥 Drag and drop your CSV here", type=["csv"], label_visibility="collapsed")
+    
     if uploaded is not None:
         df = pd.read_csv(uploaded)
         st.session_state.df = df
-
-        with summary_col:
-            st.header("Summary")
+        
+        with col_up2:
             n_rows, n_cols = df.shape
-            target_col = df.columns[-1]
-            n_classes = df[target_col].nunique()
+            n_classes = df.iloc[:, -1].nunique()
+            st.success(f"**Loaded Successfully!** \\nWe found **{n_rows:,} rows**, **{n_cols-1} features**, and **{n_classes} categories** to predict.")
+            
+        with st.expander("👀 Peek at your raw data"):
+            st.dataframe(df.head(10), use_container_width=True)
 
-            mc1, mc2, mc3, mc4 = st.columns(4)
-            mc1.metric("Rows", f"{n_rows:,}")
-            mc2.metric("Cols", n_cols)
-            mc3.metric("Features", n_cols - 1)
-            mc4.metric("Classes", n_classes)
-
-        st.subheader("Data Preview")
-        st.dataframe(df.head(10), use_container_width=True, height=280)
-
-        # Prepare X, y
         target = df.iloc[:, -1]
         features = df.iloc[:, :-1].copy()
+        
+        # Super simple auto-encoder for the frontend
         for col in features.columns:
             if features[col].dtype == object or str(features[col].dtype) == "category":
                 le = LabelEncoder()
@@ -203,472 +336,185 @@ with tab_upload:
         if target.dtype == object or str(target.dtype) == "category":
             le = LabelEncoder()
             target = le.fit_transform(target.astype(str))
+            
         X = np.nan_to_num(features.values.astype(np.float64))
         y = np.array(target, dtype=np.int64)
         X = StandardScaler().fit_transform(X)
+        
         st.session_state.X = X
         st.session_state.y = y
+    st.markdown('</div>', unsafe_allow_html=True)
 
-        st.success(f"✅ Dataset loaded: {n_rows:,} samples, {X.shape[1]} features, {n_classes} classes")
-
-        # ----- Action buttons row -----
-        st.divider()
-        act1, act2, act3 = st.columns(3)
-
-        # --- Meta-features ---
-        with act1:
-            if st.button("🔬 Extract Meta-Features", use_container_width=True):
-                with st.spinner("Extracting meta-features…"):
-                    matrix, names = extract_and_reshape(X, y)
-                    st.session_state.meta_matrix = matrix
-                st.success(f"✅ {MATRIX_SIZE}×{MATRIX_SIZE} matrix ready")
-
-        # --- Recommend ---
-        with act2:
-            rec_disabled = not model_exists
-            if st.button("⚡ Recommend HP", disabled=rec_disabled, use_container_width=True):
-                with st.spinner("Running CNN inference…"):
-                    result = recommend_hyperparameters(X, y)
-                    st.session_state.recommendation = result
-                st.success("✅ Recommendation ready")
-            if rec_disabled:
-                st.caption("⚠ Train the model first")
-
-        # --- Train SVM ---
-        with act3:
-            svm_disabled = st.session_state.recommendation is None
-            if st.button("🎯 Train SVM", disabled=svm_disabled, use_container_width=True):
-                cfg = st.session_state.recommendation["predicted_config"]
-                with st.spinner(f"Training SVM (C={cfg['C']}, γ={cfg['gamma']})…"):
-                    X_tr, X_te, y_tr, y_te = train_test_split(X, y, test_size=0.2, random_state=42, stratify=y)
-                    clf = SVC(C=cfg["C"], gamma=cfg["gamma"], kernel="rbf", max_iter=5000)
-                    clf.fit(X_tr, y_tr)
-                    train_acc = clf.score(X_tr, y_tr)
-                    test_acc = clf.score(X_te, y_te)
-                    y_pred = clf.predict(X_te)
-                st.session_state["svm_results"] = {
-                    "train_acc": train_acc, "test_acc": test_acc,
-                    "y_test": y_te, "y_pred": y_pred, "cfg": cfg
-                }
-                st.success("✅ Training done")
-            if svm_disabled:
-                st.caption("⚠ Get recommendation first")
-
-        # ----- Results display -----
-        # Meta-feature heatmap
+    if st.session_state.X is not None:
+        # --- STEP 2: META FEATURES ---
+        st.markdown('<div class="step-container"><div class="step-title">🔬 Step 2: Convert to Meta-Image</div>', unsafe_allow_html=True)
+        st.markdown('<div class="info-box">Now we will analyze the statistical DNA of your dataset and form a 20x20 visual matrix. This is what the AI actually "sees".</div>', unsafe_allow_html=True)
+        
+        if st.button("🧬 Generate Dataset DNA Matrix", use_container_width=True, type="primary"):
+            with st.spinner("Crunching mathematics... Extracting Skewness, Kurtosis, Landmarking features..."):
+                matrix, names = extract_and_reshape(st.session_state.X, st.session_state.y)
+                st.session_state.meta_matrix = matrix
+        
         if st.session_state.meta_matrix is not None:
-            with st.expander("🔬 Meta-Feature Heatmap", expanded=False):
-                fig, ax = plt.subplots(figsize=(5, 4))
-                sns.heatmap(st.session_state.meta_matrix, cmap="viridis", annot=False, ax=ax,
-                            xticklabels=False, yticklabels=False)
-                ax.set_title("12 × 12 Meta-Feature Matrix")
+            col_mf1, col_mf2 = st.columns([1, 2])
+            with col_mf1:
+                fig, ax = plt.subplots(figsize=(4, 4))
+                sns.heatmap(st.session_state.meta_matrix, cmap="mako", annot=False, ax=ax, cbar=False,
+                            xticklabels=False, yticklabels=False, robust=True)
                 st.pyplot(fig)
                 plt.close(fig)
+            with col_mf2:
+                st.success("✅ **Matrix Generated!**")
+                st.write("This 20x20 colorful grid represents 400 deep statistical patterns found within your rows and columns. This unique pattern is what gets fed into the neural network brain.")
+        st.markdown('</div>', unsafe_allow_html=True)
 
-        # Recommendation
-        if st.session_state.recommendation is not None:
-            result = st.session_state.recommendation
-            cfg = result["predicted_config"]
+        # --- STEP 3: AI RECOMMENDATION ---
+        if st.session_state.meta_matrix is not None:
+            st.markdown('<div class="step-container"><div class="step-title">🧠 Step 3: Ask the AI for the Best Model</div>', unsafe_allow_html=True)
+            st.markdown('<div class="info-box">The CNN will evaluate the heat-map above against 36 different highly-tuned algorithm configurations to instantly predict the winner.</div>', unsafe_allow_html=True)
+            
+            rec_disabled = not model_exists
+            if st.button("⚡ Get hyperparameter recommendation from CNN", disabled=rec_disabled, use_container_width=True, type="primary"):
+                with st.spinner("CNN is evaluating 36 configurations..."):
+                    result = recommend_hyperparameters(st.session_state.X, st.session_state.y)
+                    st.session_state.recommendation = result
+                st.success("✅ Decision Made!")
+            
+            if st.session_state.recommendation is not None:
+                result = st.session_state.recommendation
+                predicted_algo = result["predicted_algo"]
+                predicted_params = result["predicted_config"]
+                
+                st.markdown(f"### 🏆 AI Selected: **<span style='color:#667eea;'>{predicted_algo}</span>**", unsafe_allow_html=True)
+                
+                # Show params in metric cards
+                param_cols = st.columns(len(predicted_params) + 1)
+                for idx, (k, v) in enumerate(predicted_params.items()):
+                    with param_cols[idx]:
+                         st.markdown(f'<div class="metric-card"><div class="metric-value">{v}</div><div class="metric-label">{k}</div></div>', unsafe_allow_html=True)
+                with param_cols[-1]:
+                     st.markdown(f'<div class="metric-card"><div class="metric-value">{result["confidence"]:.1%}</div><div class="metric-label">AI Confidence</div></div>', unsafe_allow_html=True)
 
-            with st.expander("⚡ Hyperparameter Recommendation", expanded=True):
-                c1, c2, c3 = st.columns(3)
-                with c1:
-                    st.markdown(f'<div class="metric-card"><div class="metric-value">{cfg["C"]}</div>'
-                                f'<div class="metric-label">C (Regularization)</div></div>', unsafe_allow_html=True)
-                with c2:
-                    st.markdown(f'<div class="metric-card"><div class="metric-value">{cfg["gamma"]}</div>'
-                                f'<div class="metric-label">gamma (Kernel coeff.)</div></div>', unsafe_allow_html=True)
-                with c3:
-                    st.markdown(f'<div class="metric-card"><div class="metric-value">{result["confidence"]:.1%}</div>'
-                                f'<div class="metric-label">Confidence</div></div>', unsafe_allow_html=True)
+                with st.expander("📊 View Probability Distribution across all 36 models"):
+                    probs = result["all_probabilities"]
+                    fig, ax = plt.subplots(figsize=(10, 3.5))
+                    colors = ["#764ba2" if i == result["predicted_index"] else "#d1d5db" for i in range(NUM_CONFIGS)]
+                    ax.bar(range(NUM_CONFIGS), probs, color=colors)
+                    ax.set_ylabel("Probability")
+                    ax.set_xlabel("Algorithm Configurations (Index 0 to 35)")
+                    st.pyplot(fig)
+                    plt.close(fig)
+            st.markdown('</div>', unsafe_allow_html=True)
 
-                # Confidence bar chart
-                probs = result["all_probabilities"]
-                config_labels = [f"C={p['C']}, γ={p['gamma']}" for p in PARAM_GRID]
-                fig, ax = plt.subplots(figsize=(9, 3.5))
-                colors = ["#667eea" if i == result["predicted_index"] else "#ddd" for i in range(NUM_CONFIGS)]
-                ax.bar(config_labels, probs, color=colors, edgecolor="#666", linewidth=0.4)
-                ax.set_ylabel("Probability")
-                ax.set_title("CNN Confidence per Configuration")
-                plt.xticks(rotation=40, ha="right", fontsize=8)
-                plt.tight_layout()
-                st.pyplot(fig)
-                plt.close(fig)
-
-                # Top-3 table
-                top3, _ = recommend_top_k(X, y, k=3)
-                st.markdown("**Top 3 Recommendations**")
-                st.table(pd.DataFrame([
-                    {"Rank": r["rank"], "C": r["config"]["C"], "gamma": r["config"]["gamma"],
-                     "Probability": f'{r["probability"]:.4f}'}
-                    for r in top3
-                ]))
-
-                if "nearest_datasets" in result and result["nearest_datasets"]:
-                    st.markdown("**Nearest Known Datasets**")
-                    st.table(pd.DataFrame([
-                        {"Dataset": d["name"], "Similarity": f'{d["similarity"]:.4f}', 
-                         "Best Algo": d["best_algo"], "Accuracy": f'{d["best_accuracy"]:.4f}'}
-                        for d in result["nearest_datasets"]
-                    ]))
-
-        # SVM results
-        if st.session_state.get("svm_results"):
-            res = st.session_state["svm_results"]
-            with st.expander("🎯 SVM Training Results", expanded=True):
-                c1, c2 = st.columns(2)
-                with c1:
-                    st.markdown(f'<div class="metric-card"><div class="metric-value">{res["train_acc"]:.1%}</div>'
-                                f'<div class="metric-label">Train Accuracy</div></div>', unsafe_allow_html=True)
-                with c2:
-                    st.markdown(f'<div class="metric-card"><div class="metric-value">{res["test_acc"]:.1%}</div>'
-                                f'<div class="metric-label">Test Accuracy</div></div>', unsafe_allow_html=True)
-
-                col1, col2 = st.columns(2)
-                with col1:
-                    st.markdown("**Confusion Matrix**")
-                    cm = confusion_matrix(res["y_test"], res["y_pred"])
-                    fig, ax = plt.subplots(figsize=(5, 4))
-                    sns.heatmap(cm, annot=True, fmt="d", cmap="Blues", ax=ax)
-                    ax.set_xlabel("Predicted"); ax.set_ylabel("Actual")
-                    st.pyplot(fig); plt.close(fig)
-                with col2:
-                    st.markdown("**Classification Report**")
-                    report = classification_report(res["y_test"], res["y_pred"], output_dict=True, zero_division=0)
-                    st.dataframe(pd.DataFrame(report).T.style.format("{:.3f}"), use_container_width=True)
-
-                # Cross-validation
-                st.markdown("**5-Fold Cross-Validation**")
-                cv_scores = cross_val_score(
-                    SVC(C=res["cfg"]["C"], gamma=res["cfg"]["gamma"], kernel="rbf", max_iter=5000),
-                    X, y, cv=5, scoring="accuracy"
-                )
-                st.bar_chart(pd.DataFrame({"Accuracy": cv_scores}, index=[f"Fold {i+1}" for i in range(5)]))
-                st.write(f"**Mean CV Accuracy: {cv_scores.mean():.4f} ± {cv_scores.std():.4f}**")
-
-    else:
-        st.info("👆 Upload a CSV file to get started.")
+            # --- STEP 4: TRAIN AND VERIFY ---
+            if st.session_state.recommendation is not None:
+                st.markdown('<div class="step-container"><div class="step-title">🎯 Step 4: Prove it (Train & Evaluate)</div>', unsafe_allow_html=True)
+                st.markdown('<div class="info-box">Let\'s actually train the AI\'s recommended model heavily on your data to see if the hypothesis was right, and evaluate the final real-world accuracy.</div>', unsafe_allow_html=True)
+                
+                if st.button("🚀 Train Recommended Model Live", use_container_width=True, type="primary"):
+                    res_rec = st.session_state.recommendation
+                    full_cfg = {"algo": res_rec["predicted_algo"], "params": res_rec["predicted_config"]}
+                    with st.spinner(f"Training {full_cfg['algo']}... Please wait (this is actually doing the hard work on your data now)."):
+                        X_tr, X_te, y_tr, y_te = train_test_split(st.session_state.X, st.session_state.y, test_size=0.2, random_state=42, stratify=st.session_state.y)
+                        clf = build_classifier(full_cfg)
+                        clf.fit(X_tr, y_tr)
+                        train_acc = clf.score(X_tr, y_tr)
+                        test_acc = clf.score(X_te, y_te)
+                        y_pred = clf.predict(X_te)
+                        st.session_state["live_results"] = {
+                            "train_acc": train_acc, "test_acc": test_acc,
+                            "y_test": y_te, "y_pred": y_pred, "cfg": full_cfg
+                        }
+                
+                if "live_results" in st.session_state:
+                    res = st.session_state["live_results"]
+                    c_res1, c_res2 = st.columns(2)
+                    with c_res1:
+                        st.markdown(f'<div class="metric-card"><div class="metric-value">{res["train_acc"]:.2%}</div><div class="metric-label">Training Accuracy</div></div>', unsafe_allow_html=True)
+                    with c_res2:
+                        st.markdown(f'<div class="metric-card"><div class="metric-value">{res["test_acc"]:.2%}</div><div class="metric-label">Testing (Unseen) Accuracy</div></div>', unsafe_allow_html=True)
+                    
+                    st.markdown("<br>", unsafe_allow_html=True)
+                    with st.expander("Show detailed Classification Report"):
+                        report = classification_report(res["y_test"], res["y_pred"], output_dict=True, zero_division=0)
+                        st.dataframe(pd.DataFrame(report).T.style.format("{:.3f}"), use_container_width=True)
+                    
+                st.markdown('</div>', unsafe_allow_html=True)
 
 
 # =====================================================================
-# TAB 2 — System Controls
-# =====================================================================
-with tab_controls:
-    st.header("System Controls")
-    st.caption("Run pipeline operations directly from the UI. Long tasks run in background threads.")
-
-    # Model status cards
-    st.subheader("System Status")
-    s1, s2, s3 = st.columns(3)
-    with s1:
-        if model_exists:
-            st.markdown('<div class="metric-card"><div class="status-ok">● Model Trained</div>'
-                        '<div class="metric-label">meta_cnn.pth exists</div></div>', unsafe_allow_html=True)
-            if os.path.exists(MODEL_INFO_PATH):
-                with open(MODEL_INFO_PATH) as f:
-                    info = json.load(f)
-                st.caption(f"Accuracy: {info.get('final_accuracy', 0):.1%} · Params: {info.get('parameters', 0):,}")
-        else:
-            st.markdown('<div class="metric-card"><div class="status-fail">● No Model</div>'
-                        '<div class="metric-label">Run pipeline first</div></div>', unsafe_allow_html=True)
-
-    with s2:
-        results_exist = os.path.exists(os.path.join(RESULTS_DIR, "evaluation_results.json"))
-        if results_exist:
-            st.markdown('<div class="metric-card"><div class="status-ok">● Results Ready</div>'
-                        '<div class="metric-label">Evaluation completed</div></div>', unsafe_allow_html=True)
-        else:
-            st.markdown('<div class="metric-card"><div class="status-fail">● No Results</div>'
-                        '<div class="metric-label">Run evaluation</div></div>', unsafe_allow_html=True)
-
-    with s3:
-        plots_exist = len(glob.glob(os.path.join(PLOTS_DIR, "*.png"))) >= 5
-        if plots_exist:
-            st.markdown('<div class="metric-card"><div class="status-ok">● Plots Generated</div>'
-                        '<div class="metric-label">5 charts ready</div></div>', unsafe_allow_html=True)
-        else:
-            st.markdown('<div class="metric-card"><div class="status-fail">● No Plots</div>'
-                        '<div class="metric-label">Run pipeline</div></div>', unsafe_allow_html=True)
-
-    st.divider()
-
-    # ----- Control buttons -----
-    st.subheader("Actions")
-
-    # Helper to render a job button + status
-    def _render_job_button(label, icon, job_name, action_fn, description, col):
-        with col:
-            running = is_job_running(job_name)
-            btn_label = f"⏳ {label} running…" if running else f"{icon} {label}"
-            if st.button(btn_label, disabled=running, use_container_width=True, key=f"btn_{job_name}"):
-                action_fn()
-                st.rerun()
-
-            st.caption(description)
-
-            job = get_job(job_name)
-            if job:
-                if job.status == "running":
-                    st.markdown(f'<span class="status-run">● Running ({job.elapsed_str})</span>', unsafe_allow_html=True)
-                    st.code(job.output[-800:] if job.output else "Starting…", language="text")
-                    time.sleep(2)
-                    st.rerun()
-                elif job.status == "done":
-                    st.markdown(f'<span class="status-ok">✓ Completed ({job.elapsed_str})</span>', unsafe_allow_html=True)
-                    with st.expander("View output", expanded=False):
-                        st.code(job.output[-2000:] if job.output else "No output", language="text")
-                elif job.status == "error":
-                    st.markdown(f'<span class="status-fail">✗ Failed (code {job.returncode})</span>', unsafe_allow_html=True)
-                    with st.expander("View error output", expanded=True):
-                        st.code(job.output[-2000:] if job.output else "No output", language="text")
-
-    c1, c2 = st.columns(2)
-    _render_job_button("Run Full Pipeline", "🚀", "pipeline", run_full_pipeline,
-                       "Load → Train → Evaluate → Plot (all 10 steps)", c1)
-    _render_job_button("Train Model", "🧠", "training", run_training,
-                       "Train CNN meta-learner on training datasets", c2)
-
-    c3, c4 = st.columns(2)
-    _render_job_button("Run Evaluation", "📊", "evaluation", run_evaluation,
-                       "Evaluate on test datasets + generate plots", c3)
-    _render_job_button("Run Tests", "🧪", "tests", run_tests,
-                       "Run pytest test suite (25 tests)", c4)
-
-    c5, _ = st.columns(2)
-    _render_job_button("Verify System", "✅", "verification", run_verification,
-                       "Check all components are working", c5)
-
-
-# =====================================================================
-# TAB 3 — Experiments
+# TAB 4 — Experiments
 # =====================================================================
 with tab_experiments:
-    st.header("Experiment Results")
-
-    # Check for results
     eval_json_path = os.path.join(RESULTS_DIR, "evaluation_results.json")
-
     if not os.path.exists(eval_json_path):
-        st.warning("⚠ No experiment results found. Run the pipeline first via **System Controls** tab.")
+        st.warning("⚠️ No experiments have been finalized. Please generate data first from the Controls tab.")
     else:
         with open(eval_json_path) as f:
             eval_data = json.load(f)
 
-        # Aggregate metrics
+        st.markdown('<div class="step-container">', unsafe_allow_html=True)
+        st.header("📊 Global AI Performance Benchmarks")
+        st.markdown('<div class="info-box">These metrics demonstrate how perfectly the CNN was able to predict the EXACT best model settings compared to an exhaustive mathematical brute-force search.</div>', unsafe_allow_html=True)
+        
         agg = eval_data.get("aggregate", {})
-        st.subheader("Aggregate Metrics")
         m1, m2, m3, m4 = st.columns(4)
-        with m1:
-            st.markdown(f'<div class="metric-card"><div class="metric-value">{agg.get("recommendation_accuracy", 0):.0%}</div>'
-                        f'<div class="metric-label">Rec. Accuracy</div></div>', unsafe_allow_html=True)
-        with m2:
-            st.markdown(f'<div class="metric-card"><div class="metric-value">{agg.get("mrr", 0):.2f}</div>'
-                        f'<div class="metric-label">MRR</div></div>', unsafe_allow_html=True)
-        with m3:
-            st.markdown(f'<div class="metric-card"><div class="metric-value">{agg.get("hit_rate_at_1", 0):.0%}</div>'
-                        f'<div class="metric-label">Hit@1</div></div>', unsafe_allow_html=True)
-        with m4:
-            st.markdown(f'<div class="metric-card"><div class="metric-value">{agg.get("hit_rate_at_3", 0):.0%}</div>'
-                        f'<div class="metric-label">Hit@3</div></div>', unsafe_allow_html=True)
-
-        st.divider()
-
-        # Per-dataset results table
-        st.subheader("Per-Dataset Results")
-        per = eval_data.get("per_dataset", {})
-        if per:
-            rows = []
-            for name, info in per.items():
-                rows.append({
-                    "Dataset": name,
-                    "True Best Acc": f"{info['true_best_accuracy']:.4f}",
-                    "CNN Pred Acc": f"{info['pred_accuracy']:.4f}",
-                    "Random Avg": f"{info['random_mean_accuracy']:.4f}",
-                    "Confidence": f"{info['pred_confidence']:.1%}",
-                    "Match": "✅" if info["match"] else "❌",
-                })
-            st.dataframe(pd.DataFrame(rows), use_container_width=True, hide_index=True)
-
-        st.divider()
-
-        # Plots
-        st.subheader("Generated Plots")
-
-        plot_files = {
-            "Training Curves": "training_curves.png",
-            "Accuracy Comparison": "accuracy_comparison.png",
-            "Metric Summary": "metric_summary.png",
-            "CNN Confidence": "confidence_chart.png",
-            "Ablation: CNN vs Random": "ablation_cnn_vs_random.png",
-        }
-
-        plot_tabs = st.tabs(list(plot_files.keys()))
-        for tab, (label, fname) in zip(plot_tabs, plot_files.items()):
-            with tab:
-                fpath = os.path.join(PLOTS_DIR, fname)
-                if os.path.exists(fpath):
-                    st.image(fpath, use_container_width=True)
-                else:
-                    st.info(f"Plot not found: {fname}")
-
-        st.divider()
-
-        # CSV downloads
-        st.subheader("Download Results")
-        csv_files = glob.glob(os.path.join(RESULTS_DIR, "*.csv"))
-        if csv_files:
-            for fpath in sorted(csv_files):
-                fname = os.path.basename(fpath)
-                with open(fpath, "rb") as f:
-                    st.download_button(
-                        f"📥 {fname}",
-                        f.read(),
-                        file_name=fname,
-                        mime="text/csv",
-                        key=f"dl_{fname}",
-                    )
-
-
-# =====================================================================
-# TAB 4 — Logs
-# =====================================================================
-with tab_logs:
-    st.header("Pipeline Logs")
-
-    log_files = glob.glob(os.path.join(LOG_DIR, "*.log"))
-
-    if not log_files:
-        st.info("No log files found. Run the pipeline to generate logs.")
-    else:
-        log_tabs = st.tabs([os.path.basename(f) for f in sorted(log_files)])
-        for tab, fpath in zip(log_tabs, sorted(log_files)):
-            with tab:
-                if st.button(f"🔄 Refresh", key=f"refresh_{os.path.basename(fpath)}"):
-                    st.rerun()
-                try:
-                    with open(fpath, "r", encoding="utf-8", errors="replace") as f:
-                        content = f.read()
-                    # Show last 200 lines
-                    lines = content.strip().split("\n")
-                    if len(lines) > 200:
-                        st.caption(f"Showing last 200 of {len(lines)} lines")
-                        content = "\n".join(lines[-200:])
-                    st.markdown(f'<div class="log-box">{content}</div>', unsafe_allow_html=True)
-                except Exception as e:
-                    st.error(f"Could not read log: {e}")
+        m1.markdown(f'<div class="metric-card"><div class="metric-value">{agg.get("recommendation_accuracy", 0):.0%}</div><div class="metric-label">Algorithm Hit Rate</div></div>', unsafe_allow_html=True)
+        m2.markdown(f'<div class="metric-card"><div class="metric-value">{agg.get("mrr", 0):.2f}</div><div class="metric-label">Mean Reciprocal Rank</div></div>', unsafe_allow_html=True)
+        m3.markdown(f'<div class="metric-card"><div class="metric-value">{agg.get("hit_rate_at_3", 0):.0%}</div><div class="metric-label">Top-3 Hit Rate</div></div>', unsafe_allow_html=True)
+        m4.markdown(f'<div class="metric-card"><div class="metric-value">{agg.get("mean_cnn_regret", 0):.4f}</div><div class="metric-label">Regret (Error Margin)</div></div>', unsafe_allow_html=True)
+        
+        st.subheader("High-Resolution Charts")
+        plot_files = {"Loss Curve": "training_curves.png", "Prediction Impact": "accuracy_comparison.png", "AI Confidence Grid": "confidence_chart.png", "Ablation Engine": "ablation_cnn_vs_random.png"}
+        ptabs = st.tabs(list(plot_files.keys()))
+        for t, (name, fname) in zip(ptabs, plot_files.items()):
+            path = os.path.join(PLOTS_DIR, fname)
+            if os.path.exists(path):
+                t.image(path, use_container_width=True)
+            else:
+                t.info(f"Visual {fname} is tracking offline.")
+                
+        st.markdown('</div>', unsafe_allow_html=True)
 
 
 # =====================================================================
 # TAB 5 — Knowledge Base
 # =====================================================================
 with tab_knowledge:
-    st.header("Meta-Knowledge Base")
-    st.caption("Historical dataset performance used for similarity-based recommendations.")
+    st.markdown('<div class="step-container">', unsafe_allow_html=True)
+    st.header("🧠 Exploring The Knowledge Base")
+    st.markdown('<div class="info-box">The Knowledge Base acts as the "Long Term Memory" for HPSM. Every dataset it studies is documented here along with its absolute optimal algorithm so that the Nearest-Neighbor algorithms can help with prediction.</div>', unsafe_allow_html=True)
 
     from backend.knowledge_base import load_knowledge_base, get_summary
     kb = load_knowledge_base()
-
     if not kb:
-        st.info("Knowledge base is empty. Run the pipeline to populate it.")
+        st.info("Knowledge engine is currently empty.")
     else:
         summary = get_summary(kb)
-
-        c1, c2, c3 = st.columns(3)
-        with c1:
-            st.markdown(f'<div class="metric-card"><div class="metric-value">{summary["total_datasets"]}</div>'
-                        f'<div class="metric-label">Datasets Indexed</div></div>', unsafe_allow_html=True)
-        with c2:
-            st.markdown(f'<div class="metric-card"><div class="metric-value">{len(summary["algo_distribution"])}</div>'
-                        f'<div class="metric-label">Algorithms Selected</div></div>', unsafe_allow_html=True)
-        with c3:
-            st.markdown(f'<div class="metric-card"><div class="metric-value">{summary["mean_accuracy"]:.1%}</div>'
-                        f'<div class="metric-label">Mean Accuracy</div></div>', unsafe_allow_html=True)
-
-        st.subheader("Algorithm Distribution")
-        dist = summary["algo_distribution"]
-        fig, ax = plt.subplots(figsize=(6, 3))
-        ax.bar(list(dist.keys()), list(dist.values()), color="#667eea")
-        ax.set_ylabel("Count")
-        st.pyplot(fig)
-        plt.close(fig)
-
-        st.subheader("Dataset Registry")
-        rows = []
-        for name, entry in kb.items():
-            rows.append({
-                "Dataset": name,
-                "Best Algorithm": entry["best_algo"],
-                "Best Params": str(entry["best_params"]),
-                "Best Accuracy": f'{entry["best_accuracy"]:.4f}'
-            })
-        st.dataframe(pd.DataFrame(rows), use_container_width=True, hide_index=True)
-
+        st.success(f"Successfully connected to long-term memory. Scanning **{summary['total_datasets']} Datasets**.")
+        rows = [{"Dataset Registry ID": name, "Supreme Algorithm": entry["best_algo"], "Optimized Configurations": str(entry["best_params"]), "Max Accuracy": f'{entry["best_accuracy"]:.4f}'} for name, entry in kb.items()]
+        st.dataframe(pd.DataFrame(rows), use_container_width=True)
+    st.markdown('</div>', unsafe_allow_html=True)
 
 # =====================================================================
-# TAB 6 — About
+# TAB 6 — Logs
 # =====================================================================
-with tab_about:
-    st.header("About This Project")
+with tab_logs:
+    st.markdown('<div class="step-container">', unsafe_allow_html=True)
+    st.header("Terminal Core Telemetry")
+    log_files = glob.glob(os.path.join(LOG_DIR, "*.log"))
+    if not log_files:
+        st.info("System quiet. Awaiting processing logs.")
+    else:
+        ltabs = st.tabs([os.path.basename(f) for f in sorted(log_files)])
+        for t, fpath in zip(ltabs, sorted(log_files)):
+            with t:
+                try:
+                    with open(fpath, "r", encoding="utf-8") as f:
+                        lines = f.readlines()
+                    text = "".join(lines[-300:])
+                    st.markdown(f'<div class="log-box">{text}</div>', unsafe_allow_html=True)
+                except Exception as e:
+                    st.error(f"Read error: {e}")
+    st.markdown('</div>', unsafe_allow_html=True)
 
-    st.markdown("""
-    ### Lightweight CNN-Based Meta-Learning Framework
-
-    **Hyperparameter tuning** is one of the most expensive steps in machine learning.
-    This project implements a **meta-learning approach** — learning relationships between
-    dataset properties and optimal hyperparameters across many datasets, then predicting
-    good hyperparameters for new datasets **instantly**.
-
-    ---
-
-    ### System Pipeline
-
-    ```
-    Dataset Input
-        ↓
-    Preprocessing & Standardization
-        ↓
-    Meta-Feature Extraction (pymfe)
-        ↓
-    12×12 Matrix Transformation
-        ↓
-    CNN Meta-Learning Model (PyTorch)
-        ↓
-    Hyperparameter Recommendation
-        ↓
-    SVM Training with Recommended HP
-        ↓
-    Evaluation & Visualization
-    ```
-
-    ---
-
-    ### Architecture
-
-    | Component | Technology |
-    |-----------|-----------|
-    | Meta-features | pymfe |
-    | Meta-learner | PyTorch CNN (23,881 params) |
-    | Base classifier | scikit-learn SVM |
-    | Frontend | Streamlit |
-    | Data sources | OpenML, sklearn |
-    | Visualization | matplotlib, seaborn |
-
-    ---
-
-    ### Hardware
-
-    - **CPU only** — no GPU required
-    - 8+ GB RAM recommended
-    - Pipeline runs in ~3-4 minutes
-    """)
-
-    st.divider()
-
-    # Model info if available
-    if os.path.exists(MODEL_INFO_PATH):
-        st.subheader("Trained Model Info")
-        with open(MODEL_INFO_PATH) as f:
-            info = json.load(f)
-        st.json(info)
-
-    st.info("Built as a research prototype for fast hyperparameter recommendation.")

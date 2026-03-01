@@ -30,7 +30,7 @@ Evaluation & Results Display (Streamlit)
 HPSM/
 ├── backend/
 │   ├── config.py                 # Centralized configuration
-│   ├── dataset_loader.py         # Load ~20 tabular datasets
+│   ├── dataset_loader.py         # Load ~150+ tabular datasets (online/offline)
 │   ├── preprocessing.py          # Data cleaning pipeline
 │   ├── feature_extraction.py     # Meta-feature extraction (pymfe → 12×12)
 │   ├── hyperparameter_search.py  # SVM grid search (9 configs)
@@ -49,7 +49,9 @@ HPSM/
 ├── frontend/
 │   └── app.py                    # Streamlit web interface
 ├── models/                       # Saved CNN weights + metadata
-├── datasets/cache/               # Cached dataset downloads
+├── datasets/
+│   ├── cache/                    # Cached dataset downloads (.pkl)
+│   └── 100_datasets/             # Offline raw physical CSV datasets
 ├── logs/                         # Pipeline + training logs
 ├── tests/
 │   ├── test_dataset_loader.py
@@ -67,8 +69,9 @@ HPSM/
 
 ```bash
 # Create a virtual environment (recommended)
-python -m venv venv
-venv\Scripts\activate        # Windows
+
+      # Windows
+      .\venv\Scripts\Activate
 # source venv/bin/activate   # macOS/Linux
 
 pip install -r requirements.txt
@@ -81,7 +84,7 @@ python pipeline.py
 ```
 
 This automatically:
-1. Loads 15 training datasets (sklearn / OpenML)
+1. Loads 150+ training datasets (scikit-learn, OpenML, and local offline CSVs)
 2. Preprocesses and standardizes data
 3. Extracts meta-features for each dataset
 4. Runs SVM hyperparameter search (9 configs × 5-fold CV)

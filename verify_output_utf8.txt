@@ -1,0 +1,62 @@
+﻿============================================================
+  HPSM ù PIPELINE VERIFICATION
+============================================================
+
+[1] Module Imports
+  Configuration                            [92m[OK][0m
+  Dataset Loader                           [92m[OK][0m
+  Preprocessing                            [92m[OK][0m
+  Feature Extraction                       [92m[OK][0m
+  HP Search                                [92m[OK][0m
+  CNN Model                                [92m[OK][0m
+  Training Pipeline                        [92m[OK][0m
+  Recommendation                           [92m[OK][0m
+  Baseline                                 [92m[OK][0m
+  Logger                                   [92m[OK][0m
+  Metrics                                  [92m[OK][0m
+  Evaluation                               [92m[OK][0m
+  Visualization                            [92m[OK][0m
+
+[2] CNN Model
+  CNN Forward Pass                         [91m[FAIL][0m  ('charmap' codec can't encode character '\u2192' in position 27: character maps to <undefined>)
+
+[3] Dataset Loading (sklearn)
+    iris                                   [92m[OK][0m  (150╫4)
+    wine                                   [92m[OK][0m  (178╫13)
+    breast_cancer                          [92m[OK][0m  (569╫30)
+
+[4] Meta-Feature Extraction
+  Extract + reshape (iris)                 [91m[FAIL][0m  (shape=(20, 20))
+
+[5] Preprocessing
+2026-03-13 10:06:54 | INFO     | backend.preprocessing | Preprocessed: 150 samples ╫ 4 features, 3 classes
+  clean_dataset (iris)                     [92m[OK][0m
+
+[6] Trained Model
+  models/meta_cnn.pth exists               [92m[OK][0m
+  model_info.json                          [92m[OK][0m  (acc=0.9183)
+
+[7] Experiment Results
+  results/evaluation_results.json          [92m[OK][0m
+  results/hyperparameter_results.csv       [92m[OK][0m
+  results/meta_features.csv                [92m[OK][0m
+  results/cnn_training_history.csv         [92m[OK][0m
+  results/evaluation_metrics.csv           [92m[OK][0m
+
+[8] Plots
+  plots/training_curves.png                [92m[OK][0m
+  plots/accuracy_comparison.png            [92m[OK][0m
+  plots/metric_summary.png                 [92m[OK][0m
+  plots/confidence_chart.png               [92m[OK][0m
+  plots/ablation_cnn_vs_random.png         [92m[OK][0m
+
+[9] Logging
+  logs/ directory exists                   [92m[OK][0m
+
+[10] Streamlit Frontend
+  frontend/app.py exists                   [92m[OK][0m
+  streamlit importable                     [92m[OK][0m  (v1.53.0)
+
+============================================================
+  [93mSOME CHECKS FAILED ù see above[0m
+============================================================

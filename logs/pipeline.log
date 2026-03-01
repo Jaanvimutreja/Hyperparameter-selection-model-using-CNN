@@ -1,0 +1,520 @@
+2026-03-11 22:24:15 | INFO     | backend.preprocessing | Preprocessed: 150 samples × 4 features, 3 classes
+2026-03-11 22:26:13 | INFO     | pipeline | Loading training datasets...
+2026-03-11 22:27:26 | INFO     | pipeline | Loaded 15 training datasets
+2026-03-11 22:27:26 | INFO     | pipeline |   iris: 150 × 4, 3 classes
+2026-03-11 22:27:26 | INFO     | pipeline |   wine: 178 × 13, 3 classes
+2026-03-11 22:27:26 | INFO     | pipeline |   breast_cancer: 569 × 30, 2 classes
+2026-03-11 22:27:26 | INFO     | pipeline |   glass: 214 × 9, 6 classes
+2026-03-11 22:27:26 | INFO     | pipeline |   seeds: 210 × 7, 3 classes
+2026-03-11 22:27:26 | INFO     | pipeline |   ionosphere: 351 × 34, 2 classes
+2026-03-11 22:27:26 | INFO     | pipeline |   vehicle: 846 × 18, 4 classes
+2026-03-11 22:27:26 | INFO     | pipeline |   balance_scale: 625 × 4, 3 classes
+2026-03-11 22:27:26 | INFO     | pipeline |   sonar: 208 × 60, 2 classes
+2026-03-11 22:27:26 | INFO     | pipeline |   zoo: 101 × 16, 7 classes
+2026-03-11 22:27:26 | INFO     | pipeline |   banknote: 1372 × 4, 2 classes
+2026-03-11 22:27:26 | INFO     | pipeline |   car: 1728 × 6, 4 classes
+2026-03-11 22:27:26 | INFO     | pipeline |   vertebral: 310 × 6, 3 classes
+2026-03-11 22:27:26 | INFO     | pipeline |   dermatology: 366 × 34, 6 classes
+2026-03-11 22:27:26 | INFO     | pipeline |   ecoli: 336 × 7, 8 classes
+2026-03-11 22:27:26 | INFO     | pipeline | Building meta-dataset...
+2026-03-11 22:28:36 | INFO     | pipeline | Built 15 meta-samples
+2026-03-11 22:28:36 | INFO     | pipeline | CSV saved: C:\Users\jaanv\OneDrive\Desktop\HPSM\experiments\results\hyperparameter_results.csv
+2026-03-11 22:28:36 | INFO     | pipeline | CSV saved: C:\Users\jaanv\OneDrive\Desktop\HPSM\experiments\results\meta_features.csv
+2026-03-11 22:28:36 | INFO     | pipeline | Augmented: 465 samples
+2026-03-11 22:31:02 | INFO     | pipeline | CSV saved: C:\Users\jaanv\OneDrive\Desktop\HPSM\experiments\results\cnn_training_history.csv
+2026-03-11 22:31:02 | INFO     | pipeline | Model info saved: C:\Users\jaanv\OneDrive\Desktop\HPSM\models\model_info.json
+2026-03-11 22:31:36 | INFO     | pipeline | Evaluating: heart
+2026-03-11 22:31:45 | INFO     | backend.baseline | Random baseline: mean=0.8916 ± 0.1318 over 20 trials
+2026-03-11 22:31:45 | INFO     | pipeline |   heart: true=6 pred=6 acc=0.9789 rand=0.8916
+2026-03-11 22:31:45 | INFO     | pipeline | Evaluating: haberman
+2026-03-11 22:31:47 | INFO     | backend.baseline | Random baseline: mean=0.7446 ± 0.0108 over 20 trials
+2026-03-11 22:31:47 | INFO     | pipeline |   haberman: true=5 pred=7 acc=0.7549 rand=0.7446
+2026-03-11 22:31:47 | INFO     | pipeline | Evaluating: titanic
+2026-03-11 22:32:02 | INFO     | backend.baseline | Random baseline: mean=0.8319 ± 0.0831 over 20 trials
+2026-03-11 22:32:02 | INFO     | pipeline |   titanic: true=6 pred=7 acc=0.8633 rand=0.8319
+2026-03-11 22:32:02 | INFO     | pipeline | Evaluating: mushroom
+2026-03-11 22:37:31 | INFO     | pipeline | Loading training datasets...
+2026-03-11 22:37:32 | INFO     | pipeline | Loaded 15 training datasets
+2026-03-11 22:37:32 | INFO     | pipeline |   iris: 150 × 4, 3 classes
+2026-03-11 22:37:32 | INFO     | pipeline |   wine: 178 × 13, 3 classes
+2026-03-11 22:37:32 | INFO     | pipeline |   breast_cancer: 569 × 30, 2 classes
+2026-03-11 22:37:32 | INFO     | pipeline |   glass: 214 × 9, 6 classes
+2026-03-11 22:37:32 | INFO     | pipeline |   seeds: 210 × 7, 3 classes
+2026-03-11 22:37:32 | INFO     | pipeline |   ionosphere: 351 × 34, 2 classes
+2026-03-11 22:37:32 | INFO     | pipeline |   vehicle: 846 × 18, 4 classes
+2026-03-11 22:37:32 | INFO     | pipeline |   balance_scale: 625 × 4, 3 classes
+2026-03-11 22:37:32 | INFO     | pipeline |   sonar: 208 × 60, 2 classes
+2026-03-11 22:37:32 | INFO     | pipeline |   zoo: 101 × 16, 7 classes
+2026-03-11 22:37:32 | INFO     | pipeline |   banknote: 1372 × 4, 2 classes
+2026-03-11 22:37:32 | INFO     | pipeline |   car: 1728 × 6, 4 classes
+2026-03-11 22:37:32 | INFO     | pipeline |   vertebral: 310 × 6, 3 classes
+2026-03-11 22:37:32 | INFO     | pipeline |   dermatology: 366 × 34, 6 classes
+2026-03-11 22:37:32 | INFO     | pipeline |   ecoli: 336 × 7, 8 classes
+2026-03-11 22:37:32 | INFO     | pipeline | Building meta-dataset...
+2026-03-11 22:38:06 | INFO     | pipeline | Built 15 meta-samples
+2026-03-11 22:38:06 | INFO     | pipeline | CSV saved: C:\Users\jaanv\OneDrive\Desktop\HPSM\experiments\results\hyperparameter_results.csv
+2026-03-11 22:38:06 | INFO     | pipeline | CSV saved: C:\Users\jaanv\OneDrive\Desktop\HPSM\experiments\results\meta_features.csv
+2026-03-11 22:38:06 | INFO     | pipeline | Augmented: 465 samples
+2026-03-11 22:40:09 | INFO     | pipeline | CSV saved: C:\Users\jaanv\OneDrive\Desktop\HPSM\experiments\results\cnn_training_history.csv
+2026-03-11 22:40:09 | INFO     | pipeline | Model info saved: C:\Users\jaanv\OneDrive\Desktop\HPSM\models\model_info.json
+2026-03-11 22:40:09 | INFO     | pipeline | Evaluating: heart
+2026-03-11 22:40:13 | INFO     | backend.baseline | Random baseline: mean=0.9311 ± 0.1019 over 10 trials
+2026-03-11 22:40:13 | INFO     | pipeline |   heart: true=6 pred=6 acc=0.9789 rand=0.9311
+2026-03-11 22:40:13 | INFO     | pipeline | Evaluating: haberman
+2026-03-11 22:40:14 | INFO     | backend.baseline | Random baseline: mean=0.7402 ± 0.0087 over 10 trials
+2026-03-11 22:40:14 | INFO     | pipeline |   haberman: true=5 pred=7 acc=0.7549 rand=0.7402
+2026-03-11 22:40:14 | INFO     | pipeline | Evaluating: titanic
+2026-03-11 22:40:22 | INFO     | backend.baseline | Random baseline: mean=0.8529 ± 0.0798 over 10 trials
+2026-03-11 22:40:22 | INFO     | pipeline |   titanic: true=6 pred=7 acc=0.8633 rand=0.8529
+2026-03-11 22:40:22 | INFO     | pipeline | Evaluating: mushroom
+2026-03-11 22:40:38 | INFO     | backend.baseline | Random baseline: mean=0.9832 ± 0.0228 over 10 trials
+2026-03-11 22:40:38 | INFO     | pipeline |   mushroom: true=7 pred=7 acc=0.9995 rand=0.9832
+2026-03-11 22:40:38 | INFO     | pipeline | Evaluating: adult
+2026-03-11 22:41:01 | INFO     | backend.baseline | Random baseline: mean=0.8174 ± 0.0220 over 10 trials
+2026-03-11 22:41:01 | INFO     | pipeline |   adult: true=6 pred=7 acc=0.8205 rand=0.8174
+2026-03-11 22:41:01 | INFO     | pipeline |   recommendation_accuracy: 0.4000
+2026-03-11 22:41:01 | INFO     | pipeline |   mrr: 0.6500
+2026-03-11 22:41:01 | INFO     | pipeline |   hit_rate_at_1: 0.4000
+2026-03-11 22:41:01 | INFO     | pipeline |   hit_rate_at_3: 0.8000
+2026-03-11 22:41:01 | INFO     | pipeline | CSV saved: C:\Users\jaanv\OneDrive\Desktop\HPSM\experiments\results\evaluation_metrics.csv
+2026-03-11 22:41:04 | INFO     | experiments.visualization | Training curves saved: C:\Users\jaanv\OneDrive\Desktop\HPSM\experiments\plots\training_curves.png
+2026-03-11 22:41:04 | INFO     | experiments.visualization | Accuracy comparison plot saved: C:\Users\jaanv\OneDrive\Desktop\HPSM\experiments\plots\accuracy_comparison.png
+2026-03-11 22:41:05 | INFO     | experiments.visualization | Metric summary plot saved: C:\Users\jaanv\OneDrive\Desktop\HPSM\experiments\plots\metric_summary.png
+2026-03-11 22:41:05 | INFO     | experiments.visualization | Confidence chart saved: C:\Users\jaanv\OneDrive\Desktop\HPSM\experiments\plots\confidence_chart.png
+2026-03-11 22:41:06 | INFO     | experiments.visualization | Ablation plot saved: C:\Users\jaanv\OneDrive\Desktop\HPSM\experiments\plots\ablation_cnn_vs_random.png
+2026-03-11 22:41:06 | INFO     | pipeline | Pipeline completed in 214.3s
+2026-03-11 22:42:14 | INFO     | backend.preprocessing | Preprocessed: 150 samples × 4 features, 3 classes
+2026-03-13 09:30:39 | INFO     | backend.preprocessing | Preprocessed: 150 samples × 4 features, 3 classes
+2026-03-13 09:38:24 | INFO     | pipeline | Loading training datasets...
+2026-03-13 09:44:09 | INFO     | pipeline | Loaded 39 training datasets
+2026-03-13 09:44:09 | INFO     | pipeline |   iris: 150 × 4, 3 classes
+2026-03-13 09:44:09 | INFO     | pipeline |   wine: 178 × 13, 3 classes
+2026-03-13 09:44:09 | INFO     | pipeline |   breast_cancer: 569 × 30, 2 classes
+2026-03-13 09:44:09 | INFO     | pipeline |   glass: 214 × 9, 6 classes
+2026-03-13 09:44:09 | INFO     | pipeline |   seeds: 210 × 7, 3 classes
+2026-03-13 09:44:09 | INFO     | pipeline |   ionosphere: 351 × 34, 2 classes
+2026-03-13 09:44:09 | INFO     | pipeline |   vehicle: 846 × 18, 4 classes
+2026-03-13 09:44:09 | INFO     | pipeline |   sonar: 208 × 60, 2 classes
+2026-03-13 09:44:09 | INFO     | pipeline |   zoo: 101 × 16, 7 classes
+2026-03-13 09:44:09 | INFO     | pipeline |   ecoli: 336 × 7, 8 classes
+2026-03-13 09:44:09 | INFO     | pipeline |   vertebral: 310 × 6, 3 classes
+2026-03-13 09:44:09 | INFO     | pipeline |   dermatology: 366 × 34, 6 classes
+2026-03-13 09:44:09 | INFO     | pipeline |   haberman: 306 × 3, 2 classes
+2026-03-13 09:44:09 | INFO     | pipeline |   balance_scale: 625 × 4, 3 classes
+2026-03-13 09:44:09 | INFO     | pipeline |   blood_transfusion: 748 × 4, 2 classes
+2026-03-13 09:44:09 | INFO     | pipeline |   liver: 583 × 10, 2 classes
+2026-03-13 09:44:09 | INFO     | pipeline |   hayes_roth: 160 × 4, 3 classes
+2026-03-13 09:44:09 | INFO     | pipeline |   teaching: 151 × 5, 3 classes
+2026-03-13 09:44:09 | INFO     | pipeline |   user_knowledge: 403 × 5, 5 classes
+2026-03-13 09:44:09 | INFO     | pipeline |   banknote: 1372 × 4, 2 classes
+2026-03-13 09:44:09 | INFO     | pipeline |   car: 1728 × 6, 4 classes
+2026-03-13 09:44:09 | INFO     | pipeline |   segment: 2000 × 19, 7 classes
+2026-03-13 09:44:09 | INFO     | pipeline |   satimage: 2000 × 36, 6 classes
+2026-03-13 09:44:09 | INFO     | pipeline |   optdigits: 2000 × 64, 10 classes
+2026-03-13 09:44:09 | INFO     | pipeline |   pendigits: 2000 × 16, 10 classes
+2026-03-13 09:44:09 | INFO     | pipeline |   waveform: 2000 × 40, 3 classes
+2026-03-13 09:44:09 | INFO     | pipeline |   page_blocks: 2000 × 10, 5 classes
+2026-03-13 09:44:09 | INFO     | pipeline |   mfeat_factors: 2000 × 216, 10 classes
+2026-03-13 09:44:09 | INFO     | pipeline |   steel_plates: 1941 × 33, 2 classes
+2026-03-13 09:44:09 | INFO     | pipeline |   yeast: 1484 × 8, 10 classes
+2026-03-13 09:44:09 | INFO     | pipeline |   abalone: 2000 × 8, 27 classes
+2026-03-13 09:44:09 | INFO     | pipeline |   credit_german: 1000 × 20, 2 classes
+2026-03-13 09:44:09 | INFO     | pipeline |   vowel: 990 × 12, 11 classes
+2026-03-13 09:44:09 | INFO     | pipeline |   wall_robot: 2000 × 24, 4 classes
+2026-03-13 09:44:09 | INFO     | pipeline |   letter: 2000 × 16, 26 classes
+2026-03-13 09:44:09 | INFO     | pipeline |   magic: 2000 × 10, 2 classes
+2026-03-13 09:44:09 | INFO     | pipeline |   shuttle: 2000 × 9, 5 classes
+2026-03-13 09:44:09 | INFO     | pipeline |   nursery: 2000 × 8, 4 classes
+2026-03-13 09:44:09 | INFO     | pipeline |   mushroom: 2000 × 22, 2 classes
+2026-03-13 09:44:09 | INFO     | pipeline | Building meta-dataset...
+2026-03-13 09:48:25 | INFO     | pipeline | Loading training datasets...
+2026-03-13 09:48:25 | INFO     | pipeline | Loaded 39 training datasets
+2026-03-13 09:48:25 | INFO     | pipeline |   iris: 150 × 4, 3 classes
+2026-03-13 09:48:25 | INFO     | pipeline |   wine: 178 × 13, 3 classes
+2026-03-13 09:48:25 | INFO     | pipeline |   breast_cancer: 569 × 30, 2 classes
+2026-03-13 09:48:25 | INFO     | pipeline |   glass: 214 × 9, 6 classes
+2026-03-13 09:48:25 | INFO     | pipeline |   seeds: 210 × 7, 3 classes
+2026-03-13 09:48:25 | INFO     | pipeline |   ionosphere: 351 × 34, 2 classes
+2026-03-13 09:48:25 | INFO     | pipeline |   vehicle: 846 × 18, 4 classes
+2026-03-13 09:48:25 | INFO     | pipeline |   sonar: 208 × 60, 2 classes
+2026-03-13 09:48:25 | INFO     | pipeline |   zoo: 101 × 16, 7 classes
+2026-03-13 09:48:25 | INFO     | pipeline |   ecoli: 336 × 7, 8 classes
+2026-03-13 09:48:25 | INFO     | pipeline |   vertebral: 310 × 6, 3 classes
+2026-03-13 09:48:25 | INFO     | pipeline |   dermatology: 366 × 34, 6 classes
+2026-03-13 09:48:25 | INFO     | pipeline |   haberman: 306 × 3, 2 classes
+2026-03-13 09:48:25 | INFO     | pipeline |   balance_scale: 625 × 4, 3 classes
+2026-03-13 09:48:25 | INFO     | pipeline |   blood_transfusion: 748 × 4, 2 classes
+2026-03-13 09:48:25 | INFO     | pipeline |   liver: 583 × 10, 2 classes
+2026-03-13 09:48:25 | INFO     | pipeline |   hayes_roth: 160 × 4, 3 classes
+2026-03-13 09:48:25 | INFO     | pipeline |   teaching: 151 × 5, 3 classes
+2026-03-13 09:48:25 | INFO     | pipeline |   user_knowledge: 403 × 5, 5 classes
+2026-03-13 09:48:25 | INFO     | pipeline |   banknote: 1372 × 4, 2 classes
+2026-03-13 09:48:25 | INFO     | pipeline |   car: 1728 × 6, 4 classes
+2026-03-13 09:48:25 | INFO     | pipeline |   segment: 2000 × 19, 7 classes
+2026-03-13 09:48:25 | INFO     | pipeline |   satimage: 2000 × 36, 6 classes
+2026-03-13 09:48:25 | INFO     | pipeline |   optdigits: 2000 × 64, 10 classes
+2026-03-13 09:48:25 | INFO     | pipeline |   pendigits: 2000 × 16, 10 classes
+2026-03-13 09:48:25 | INFO     | pipeline |   waveform: 2000 × 40, 3 classes
+2026-03-13 09:48:25 | INFO     | pipeline |   page_blocks: 2000 × 10, 5 classes
+2026-03-13 09:48:25 | INFO     | pipeline |   mfeat_factors: 2000 × 216, 10 classes
+2026-03-13 09:48:25 | INFO     | pipeline |   steel_plates: 1941 × 33, 2 classes
+2026-03-13 09:48:25 | INFO     | pipeline |   yeast: 1484 × 8, 10 classes
+2026-03-13 09:48:25 | INFO     | pipeline |   abalone: 2000 × 8, 27 classes
+2026-03-13 09:48:25 | INFO     | pipeline |   credit_german: 1000 × 20, 2 classes
+2026-03-13 09:48:25 | INFO     | pipeline |   vowel: 990 × 12, 11 classes
+2026-03-13 09:48:25 | INFO     | pipeline |   wall_robot: 2000 × 24, 4 classes
+2026-03-13 09:48:25 | INFO     | pipeline |   letter: 2000 × 16, 26 classes
+2026-03-13 09:48:25 | INFO     | pipeline |   magic: 2000 × 10, 2 classes
+2026-03-13 09:48:25 | INFO     | pipeline |   shuttle: 2000 × 9, 5 classes
+2026-03-13 09:48:25 | INFO     | pipeline |   nursery: 2000 × 8, 4 classes
+2026-03-13 09:48:25 | INFO     | pipeline |   mushroom: 2000 × 22, 2 classes
+2026-03-13 09:48:25 | INFO     | pipeline | Building meta-dataset...
+2026-03-13 10:04:26 | INFO     | backend.preprocessing | Preprocessed: 150 samples × 4 features, 3 classes
+2026-03-13 10:06:30 | INFO     | backend.preprocessing | Preprocessed: 150 samples × 4 features, 3 classes
+2026-03-13 10:06:54 | INFO     | backend.preprocessing | Preprocessed: 150 samples × 4 features, 3 classes
+2026-03-13 10:08:08 | INFO     | backend.preprocessing | Preprocessed: 150 samples × 4 features, 3 classes
+2026-03-13 10:10:06 | INFO     | pipeline | Loading training datasets...
+2026-03-13 10:12:39 | INFO     | pipeline | Loaded 48 training datasets
+2026-03-13 10:12:39 | INFO     | pipeline |   iris: 150 × 4, 3 classes
+2026-03-13 10:12:39 | INFO     | pipeline |   wine: 178 × 13, 3 classes
+2026-03-13 10:12:39 | INFO     | pipeline |   breast_cancer: 569 × 30, 2 classes
+2026-03-13 10:12:39 | INFO     | pipeline |   glass: 214 × 9, 6 classes
+2026-03-13 10:12:39 | INFO     | pipeline |   seeds: 210 × 7, 3 classes
+2026-03-13 10:12:39 | INFO     | pipeline |   ionosphere: 351 × 34, 2 classes
+2026-03-13 10:12:39 | INFO     | pipeline |   vehicle: 846 × 18, 4 classes
+2026-03-13 10:12:39 | INFO     | pipeline |   sonar: 208 × 60, 2 classes
+2026-03-13 10:12:39 | INFO     | pipeline |   zoo: 101 × 16, 7 classes
+2026-03-13 10:12:39 | INFO     | pipeline |   ecoli: 336 × 7, 8 classes
+2026-03-13 10:12:39 | INFO     | pipeline |   vertebral: 310 × 6, 3 classes
+2026-03-13 10:12:39 | INFO     | pipeline |   dermatology: 366 × 34, 6 classes
+2026-03-13 10:12:39 | INFO     | pipeline |   haberman: 306 × 3, 2 classes
+2026-03-13 10:12:39 | INFO     | pipeline |   balance_scale: 625 × 4, 3 classes
+2026-03-13 10:12:39 | INFO     | pipeline |   blood_transfusion: 748 × 4, 2 classes
+2026-03-13 10:12:39 | INFO     | pipeline |   liver: 583 × 10, 2 classes
+2026-03-13 10:12:39 | INFO     | pipeline |   hayes_roth: 160 × 4, 3 classes
+2026-03-13 10:12:39 | INFO     | pipeline |   teaching: 151 × 5, 3 classes
+2026-03-13 10:12:39 | INFO     | pipeline |   user_knowledge: 403 × 5, 5 classes
+2026-03-13 10:12:39 | INFO     | pipeline |   diabetes: 768 × 8, 2 classes
+2026-03-13 10:12:39 | INFO     | pipeline |   splice: 2000 × 60, 3 classes
+2026-03-13 10:12:39 | INFO     | pipeline |   sick: 2000 × 29, 2 classes
+2026-03-13 10:12:39 | INFO     | pipeline |   colic: 368 × 22, 2 classes
+2026-03-13 10:12:39 | INFO     | pipeline |   banknote: 1372 × 4, 2 classes
+2026-03-13 10:12:39 | INFO     | pipeline |   car: 1728 × 6, 4 classes
+2026-03-13 10:12:39 | INFO     | pipeline |   segment: 2000 × 19, 7 classes
+2026-03-13 10:12:39 | INFO     | pipeline |   satimage: 2000 × 36, 6 classes
+2026-03-13 10:12:39 | INFO     | pipeline |   optdigits: 2000 × 64, 10 classes
+2026-03-13 10:12:39 | INFO     | pipeline |   pendigits: 2000 × 16, 10 classes
+2026-03-13 10:12:39 | INFO     | pipeline |   waveform: 2000 × 40, 3 classes
+2026-03-13 10:12:39 | INFO     | pipeline |   page_blocks: 2000 × 10, 5 classes
+2026-03-13 10:12:39 | INFO     | pipeline |   mfeat_factors: 2000 × 216, 10 classes
+2026-03-13 10:12:39 | INFO     | pipeline |   steel_plates: 1941 × 33, 2 classes
+2026-03-13 10:12:39 | INFO     | pipeline |   yeast: 1484 × 8, 10 classes
+2026-03-13 10:12:39 | INFO     | pipeline |   abalone: 2000 × 8, 27 classes
+2026-03-13 10:12:39 | INFO     | pipeline |   credit_german: 1000 × 20, 2 classes
+2026-03-13 10:12:39 | INFO     | pipeline |   vowel: 990 × 12, 11 classes
+2026-03-13 10:12:39 | INFO     | pipeline |   wall_robot: 2000 × 24, 4 classes
+2026-03-13 10:12:39 | INFO     | pipeline |   kr_vs_kp: 2000 × 36, 2 classes
+2026-03-13 10:12:39 | INFO     | pipeline |   phishing: 2000 × 30, 2 classes
+2026-03-13 10:12:39 | INFO     | pipeline |   eeg: 2000 × 14, 2 classes
+2026-03-13 10:12:39 | INFO     | pipeline |   letter: 2000 × 16, 26 classes
+2026-03-13 10:12:39 | INFO     | pipeline |   magic: 2000 × 10, 2 classes
+2026-03-13 10:12:39 | INFO     | pipeline |   shuttle: 2000 × 9, 5 classes
+2026-03-13 10:12:39 | INFO     | pipeline |   nursery: 2000 × 8, 4 classes
+2026-03-13 10:12:39 | INFO     | pipeline |   mushroom: 2000 × 22, 2 classes
+2026-03-13 10:12:39 | INFO     | pipeline |   electricity: 2000 × 8, 2 classes
+2026-03-13 10:12:39 | INFO     | pipeline |   nomao: 2000 × 118, 2 classes
+2026-03-13 10:12:39 | INFO     | pipeline | Building meta-dataset...
+2026-03-13 10:41:44 | INFO     | pipeline | Loading training datasets...
+2026-03-13 10:41:44 | INFO     | pipeline | Loaded 2 training datasets
+2026-03-13 10:41:45 | INFO     | pipeline |   iris: 150 × 4, 3 classes
+2026-03-13 10:41:45 | INFO     | pipeline |   wine: 178 × 13, 3 classes
+2026-03-13 10:41:45 | INFO     | pipeline | Building meta-dataset...
+2026-03-13 10:42:56 | INFO     | pipeline | Built 2 meta-samples
+2026-03-13 10:42:56 | INFO     | pipeline | CSV saved: C:\Users\jaanv\OneDrive\Desktop\HPSM\experiments\results\hyperparameter_results.csv
+2026-03-13 10:42:56 | INFO     | pipeline | CSV saved: C:\Users\jaanv\OneDrive\Desktop\HPSM\experiments\results\meta_features.csv
+2026-03-13 10:42:56 | INFO     | pipeline | Augmented: 92 samples
+2026-03-13 10:44:06 | INFO     | pipeline | CSV saved: C:\Users\jaanv\OneDrive\Desktop\HPSM\experiments\results\cnn_training_history.csv
+2026-03-13 10:44:06 | INFO     | pipeline | Model info saved: C:\Users\jaanv\OneDrive\Desktop\HPSM\models\model_info.json
+2026-03-13 10:44:06 | INFO     | pipeline | Evaluating: breast_cancer
+2026-03-13 10:44:59 | INFO     | backend.recommend | Recommendation: [7] SVM(C=10, gamma=0.1) (conf=1.0000)
+2026-03-13 10:45:13 | INFO     | backend.baseline | Random baseline: mean=0.9722 ± 0.0061 over 10 trials
+2026-03-13 10:45:15 | INFO     | pipeline |   breast_cancer: true=[30]LogisticRegression pred=[7]SVM acc=0.9720 rand=0.9722
+2026-03-13 10:45:15 | INFO     | pipeline | Evaluating: glass
+2026-03-13 10:46:20 | INFO     | backend.recommend | Recommendation: [4] SVM(C=1, gamma=0.1) (conf=0.9841)
+2026-03-13 10:46:40 | INFO     | backend.baseline | Random baseline: mean=0.7143 ± 0.0497 over 10 trials
+2026-03-13 10:46:42 | INFO     | pipeline |   glass: true=[17]RandomForest pred=[4]SVM acc=0.6967 rand=0.7143
+2026-03-13 10:46:42 | INFO     | pipeline |   recommendation_accuracy: 0.0000
+2026-03-13 10:46:42 | INFO     | pipeline |   algorithm_selection_accuracy: 0.0000
+2026-03-13 10:46:42 | INFO     | pipeline |   mrr: 0.0697
+2026-03-13 10:46:42 | INFO     | pipeline |   hit_rate_at_1: 0.0000
+2026-03-13 10:46:42 | INFO     | pipeline |   hit_rate_at_3: 0.0000
+2026-03-13 10:46:42 | INFO     | pipeline |   mean_cnn_regret: 0.0537
+2026-03-13 10:46:42 | INFO     | pipeline |   mean_random_regret: 0.0448
+2026-03-13 10:46:42 | INFO     | pipeline | CSV saved: C:\Users\jaanv\OneDrive\Desktop\HPSM\experiments\results\evaluation_metrics.csv
+2026-03-13 10:46:44 | INFO     | pipeline | Pipeline completed in 299.4s
+2026-03-13 10:47:05 | INFO     | backend.recommend | Model loaded from C:\Users\jaanv\OneDrive\Desktop\HPSM\models\meta_cnn.pth
+2026-03-13 10:48:00 | INFO     | backend.recommend | Recommendation: [7] SVM(C=10, gamma=0.1) (conf=1.0000)
+2026-03-13 10:48:15 | INFO     | backend.baseline | Random baseline: mean=0.9722 ± 0.0061 over 10 trials
+2026-03-13 10:49:24 | INFO     | backend.recommend | Recommendation: [4] SVM(C=1, gamma=0.1) (conf=0.9841)
+2026-03-13 10:49:44 | INFO     | backend.baseline | Random baseline: mean=0.7143 ± 0.0497 over 10 trials
+2026-03-14 16:36:04 | INFO     | backend.preprocessing | Preprocessed: 150 samples × 4 features, 3 classes
+2026-03-14 16:55:53 | INFO     | backend.recommend | Model loaded from C:\Users\jaanv\OneDrive\Desktop\HPSM\models\meta_cnn.pth
+2026-03-14 16:55:56 | INFO     | backend.recommend | Recommendation: [4] SVM(C=1, gamma=0.1) (conf=0.9834)
+2026-03-14 17:47:52 | INFO     | pipeline | Loading training datasets...
+2026-03-14 17:47:53 | INFO     | pipeline | Loaded 49 training datasets
+2026-03-14 17:47:53 | INFO     | pipeline |   iris: 150 × 4, 3 classes
+2026-03-14 17:47:53 | INFO     | pipeline |   wine: 178 × 13, 3 classes
+2026-03-14 17:47:53 | INFO     | pipeline |   breast_cancer: 569 × 30, 2 classes
+2026-03-14 17:47:53 | INFO     | pipeline |   glass: 214 × 9, 6 classes
+2026-03-14 17:47:53 | INFO     | pipeline |   seeds: 210 × 7, 3 classes
+2026-03-14 17:47:53 | INFO     | pipeline |   ionosphere: 351 × 34, 2 classes
+2026-03-14 17:47:53 | INFO     | pipeline |   vehicle: 846 × 18, 4 classes
+2026-03-14 17:47:53 | INFO     | pipeline |   sonar: 208 × 60, 2 classes
+2026-03-14 17:47:53 | INFO     | pipeline |   zoo: 101 × 16, 7 classes
+2026-03-14 17:47:53 | INFO     | pipeline |   ecoli: 336 × 7, 8 classes
+2026-03-14 17:47:53 | INFO     | pipeline |   vertebral: 310 × 6, 3 classes
+2026-03-14 17:47:53 | INFO     | pipeline |   dermatology: 366 × 34, 6 classes
+2026-03-14 17:47:53 | INFO     | pipeline |   haberman: 306 × 3, 2 classes
+2026-03-14 17:47:53 | INFO     | pipeline |   balance_scale: 625 × 4, 3 classes
+2026-03-14 17:47:53 | INFO     | pipeline |   blood_transfusion: 748 × 4, 2 classes
+2026-03-14 17:47:53 | INFO     | pipeline |   liver: 583 × 10, 2 classes
+2026-03-14 17:47:53 | INFO     | pipeline |   hayes_roth: 160 × 4, 3 classes
+2026-03-14 17:47:53 | INFO     | pipeline |   teaching: 151 × 5, 3 classes
+2026-03-14 17:47:53 | INFO     | pipeline |   user_knowledge: 403 × 5, 5 classes
+2026-03-14 17:47:53 | INFO     | pipeline |   diabetes: 768 × 8, 2 classes
+2026-03-14 17:47:53 | INFO     | pipeline |   splice: 2000 × 60, 3 classes
+2026-03-14 17:47:53 | INFO     | pipeline |   sick: 2000 × 29, 2 classes
+2026-03-14 17:47:53 | INFO     | pipeline |   colic: 368 × 22, 2 classes
+2026-03-14 17:47:53 | INFO     | pipeline |   banknote: 1372 × 4, 2 classes
+2026-03-14 17:47:53 | INFO     | pipeline |   car: 1728 × 6, 4 classes
+2026-03-14 17:47:53 | INFO     | pipeline |   segment: 2000 × 19, 7 classes
+2026-03-14 17:47:53 | INFO     | pipeline |   satimage: 2000 × 36, 6 classes
+2026-03-14 17:47:53 | INFO     | pipeline |   optdigits: 2000 × 64, 10 classes
+2026-03-14 17:47:53 | INFO     | pipeline |   pendigits: 2000 × 16, 10 classes
+2026-03-14 17:47:53 | INFO     | pipeline |   waveform: 2000 × 40, 3 classes
+2026-03-14 17:47:53 | INFO     | pipeline |   page_blocks: 2000 × 10, 5 classes
+2026-03-14 17:47:53 | INFO     | pipeline |   mfeat_factors: 2000 × 216, 10 classes
+2026-03-14 17:47:53 | INFO     | pipeline |   steel_plates: 1941 × 33, 2 classes
+2026-03-14 17:47:53 | INFO     | pipeline |   yeast: 1484 × 8, 10 classes
+2026-03-14 17:47:53 | INFO     | pipeline |   abalone: 2000 × 8, 27 classes
+2026-03-14 17:47:53 | INFO     | pipeline |   credit_german: 1000 × 20, 2 classes
+2026-03-14 17:47:53 | INFO     | pipeline |   vowel: 990 × 12, 11 classes
+2026-03-14 17:47:53 | INFO     | pipeline |   wall_robot: 2000 × 24, 4 classes
+2026-03-14 17:47:53 | INFO     | pipeline |   kr_vs_kp: 2000 × 36, 2 classes
+2026-03-14 17:47:53 | INFO     | pipeline |   mfeat_pixel: 2000 × 240, 10 classes
+2026-03-14 17:47:53 | INFO     | pipeline |   phishing: 2000 × 30, 2 classes
+2026-03-14 17:47:53 | INFO     | pipeline |   eeg: 2000 × 14, 2 classes
+2026-03-14 17:47:53 | INFO     | pipeline |   letter: 2000 × 16, 26 classes
+2026-03-14 17:47:53 | INFO     | pipeline |   magic: 2000 × 10, 2 classes
+2026-03-14 17:47:53 | INFO     | pipeline |   shuttle: 2000 × 9, 5 classes
+2026-03-14 17:47:53 | INFO     | pipeline |   nursery: 2000 × 8, 4 classes
+2026-03-14 17:47:53 | INFO     | pipeline |   mushroom: 2000 × 22, 2 classes
+2026-03-14 17:47:53 | INFO     | pipeline |   electricity: 2000 × 8, 2 classes
+2026-03-14 17:47:53 | INFO     | pipeline |   nomao: 2000 × 118, 2 classes
+2026-03-14 17:47:53 | INFO     | pipeline | Building meta-dataset...
+2026-03-14 17:51:04 | INFO     | backend.recommend | Model loaded from C:\Users\jaanv\OneDrive\Desktop\HPSM\models\meta_cnn.pth
+2026-03-14 17:51:07 | INFO     | backend.recommend | Recommendation: [4] SVM(C=1, gamma=0.1) (conf=0.9834)
+2026-03-16 10:46:26 | INFO     | pipeline | Loading training datasets...
+2026-03-16 10:46:26 | INFO     | pipeline | Loaded 49 training datasets
+2026-03-16 10:46:26 | INFO     | pipeline |   iris: 150 × 4, 3 classes
+2026-03-16 10:46:26 | INFO     | pipeline |   wine: 178 × 13, 3 classes
+2026-03-16 10:46:26 | INFO     | pipeline |   breast_cancer: 569 × 30, 2 classes
+2026-03-16 10:46:26 | INFO     | pipeline |   glass: 214 × 9, 6 classes
+2026-03-16 10:46:26 | INFO     | pipeline |   seeds: 210 × 7, 3 classes
+2026-03-16 10:46:26 | INFO     | pipeline |   ionosphere: 351 × 34, 2 classes
+2026-03-16 10:46:26 | INFO     | pipeline |   vehicle: 846 × 18, 4 classes
+2026-03-16 10:46:26 | INFO     | pipeline |   sonar: 208 × 60, 2 classes
+2026-03-16 10:46:26 | INFO     | pipeline |   zoo: 101 × 16, 7 classes
+2026-03-16 10:46:26 | INFO     | pipeline |   ecoli: 336 × 7, 8 classes
+2026-03-16 10:46:26 | INFO     | pipeline |   vertebral: 310 × 6, 3 classes
+2026-03-16 10:46:26 | INFO     | pipeline |   dermatology: 366 × 34, 6 classes
+2026-03-16 10:46:26 | INFO     | pipeline |   haberman: 306 × 3, 2 classes
+2026-03-16 10:46:26 | INFO     | pipeline |   balance_scale: 625 × 4, 3 classes
+2026-03-16 10:46:26 | INFO     | pipeline |   blood_transfusion: 748 × 4, 2 classes
+2026-03-16 10:46:26 | INFO     | pipeline |   liver: 583 × 10, 2 classes
+2026-03-16 10:46:26 | INFO     | pipeline |   hayes_roth: 160 × 4, 3 classes
+2026-03-16 10:46:26 | INFO     | pipeline |   teaching: 151 × 5, 3 classes
+2026-03-16 10:46:26 | INFO     | pipeline |   user_knowledge: 403 × 5, 5 classes
+2026-03-16 10:46:26 | INFO     | pipeline |   diabetes: 768 × 8, 2 classes
+2026-03-16 10:46:26 | INFO     | pipeline |   splice: 2000 × 60, 3 classes
+2026-03-16 10:46:26 | INFO     | pipeline |   sick: 2000 × 29, 2 classes
+2026-03-16 10:46:26 | INFO     | pipeline |   colic: 368 × 22, 2 classes
+2026-03-16 10:46:26 | INFO     | pipeline |   banknote: 1372 × 4, 2 classes
+2026-03-16 10:46:26 | INFO     | pipeline |   car: 1728 × 6, 4 classes
+2026-03-16 10:46:26 | INFO     | pipeline |   segment: 2000 × 19, 7 classes
+2026-03-16 10:46:26 | INFO     | pipeline |   satimage: 2000 × 36, 6 classes
+2026-03-16 10:46:26 | INFO     | pipeline |   optdigits: 2000 × 64, 10 classes
+2026-03-16 10:46:26 | INFO     | pipeline |   pendigits: 2000 × 16, 10 classes
+2026-03-16 10:46:26 | INFO     | pipeline |   waveform: 2000 × 40, 3 classes
+2026-03-16 10:46:26 | INFO     | pipeline |   page_blocks: 2000 × 10, 5 classes
+2026-03-16 10:46:26 | INFO     | pipeline |   mfeat_factors: 2000 × 216, 10 classes
+2026-03-16 10:46:26 | INFO     | pipeline |   steel_plates: 1941 × 33, 2 classes
+2026-03-16 10:46:26 | INFO     | pipeline |   yeast: 1484 × 8, 10 classes
+2026-03-16 10:46:26 | INFO     | pipeline |   abalone: 2000 × 8, 27 classes
+2026-03-16 10:46:26 | INFO     | pipeline |   credit_german: 1000 × 20, 2 classes
+2026-03-16 10:46:26 | INFO     | pipeline |   vowel: 990 × 12, 11 classes
+2026-03-16 10:46:26 | INFO     | pipeline |   wall_robot: 2000 × 24, 4 classes
+2026-03-16 10:46:26 | INFO     | pipeline |   kr_vs_kp: 2000 × 36, 2 classes
+2026-03-16 10:46:26 | INFO     | pipeline |   mfeat_pixel: 2000 × 240, 10 classes
+2026-03-16 10:46:26 | INFO     | pipeline |   phishing: 2000 × 30, 2 classes
+2026-03-16 10:46:26 | INFO     | pipeline |   eeg: 2000 × 14, 2 classes
+2026-03-16 10:46:26 | INFO     | pipeline |   letter: 2000 × 16, 26 classes
+2026-03-16 10:46:26 | INFO     | pipeline |   magic: 2000 × 10, 2 classes
+2026-03-16 10:46:26 | INFO     | pipeline |   shuttle: 2000 × 9, 5 classes
+2026-03-16 10:46:26 | INFO     | pipeline |   nursery: 2000 × 8, 4 classes
+2026-03-16 10:46:26 | INFO     | pipeline |   mushroom: 2000 × 22, 2 classes
+2026-03-16 10:46:26 | INFO     | pipeline |   electricity: 2000 × 8, 2 classes
+2026-03-16 10:46:26 | INFO     | pipeline |   nomao: 2000 × 118, 2 classes
+2026-03-16 10:46:26 | INFO     | pipeline | Building meta-dataset...
+2026-03-16 11:06:38 | INFO     | backend.recommend | Model loaded from C:\Users\jaanv\OneDrive\Desktop\HPSM\models\meta_cnn.pth
+2026-03-16 11:06:40 | INFO     | backend.recommend | Recommendation: [4] SVM(C=1, gamma=0.1) (conf=0.9834)
+2026-03-26 19:54:39 | INFO     | backend.recommend | Model loaded from C:\Users\jaanv\OneDrive\Desktop\HPSM\models\meta_cnn.pth
+2026-03-26 19:54:47 | INFO     | backend.recommend | Recommendation: [4] SVM(C=1, gamma=0.1) (conf=0.9834)
+2026-03-26 22:04:05 | INFO     | pipeline | Loading training datasets...
+2026-03-26 22:04:10 | INFO     | pipeline | Loaded 145 training datasets
+2026-03-26 22:04:10 | INFO     | pipeline |   iris: 150 × 4, 3 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   wine: 178 × 13, 3 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   breast_cancer: 569 × 30, 2 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   glass: 214 × 9, 6 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   seeds: 210 × 7, 3 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   ionosphere: 351 × 34, 2 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   vehicle: 846 × 18, 4 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   sonar: 208 × 60, 2 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   zoo: 101 × 16, 7 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   ecoli: 336 × 7, 8 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   vertebral: 310 × 6, 3 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   dermatology: 366 × 34, 6 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   haberman: 306 × 3, 2 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   balance_scale: 625 × 4, 3 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   blood_transfusion: 748 × 4, 2 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   liver: 583 × 10, 2 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   hayes_roth: 160 × 4, 3 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   teaching: 151 × 5, 3 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   user_knowledge: 403 × 5, 5 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   diabetes: 768 × 8, 2 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   splice: 2000 × 60, 3 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   sick: 2000 × 29, 2 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   colic: 368 × 22, 2 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   banknote: 1372 × 4, 2 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   car: 1728 × 6, 4 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   segment: 2000 × 19, 7 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   satimage: 2000 × 36, 6 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   optdigits: 2000 × 64, 10 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   pendigits: 2000 × 16, 10 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   waveform: 2000 × 40, 3 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   page_blocks: 2000 × 10, 5 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   mfeat_factors: 2000 × 216, 10 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   steel_plates: 1941 × 33, 2 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   yeast: 1484 × 8, 10 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   abalone: 2000 × 8, 27 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   credit_german: 1000 × 20, 2 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   vowel: 990 × 12, 11 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   wall_robot: 2000 × 24, 4 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   kr_vs_kp: 2000 × 36, 2 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   mfeat_pixel: 2000 × 240, 10 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   phishing: 2000 × 30, 2 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   eeg: 2000 × 14, 2 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   letter: 2000 × 16, 26 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   magic: 2000 × 10, 2 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   shuttle: 2000 × 9, 5 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   nursery: 2000 × 8, 4 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   mushroom: 2000 × 22, 2 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   electricity: 2000 × 8, 2 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   nomao: 2000 × 118, 2 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   anneal: 898 × 38, 5 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   labor: 57 × 16, 2 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   arrhythmia: 452 × 279, 13 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   audiology: 226 × 69, 24 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   autos: 205 × 25, 6 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   lymph: 148 × 18, 4 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   mfeat_fourier: 2000 × 76, 10 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   breast_w: 699 × 9, 2 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   mfeat_karhunen: 2000 × 64, 10 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   mfeat_zernike: 2000 × 47, 10 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   cmc: 1473 × 9, 3 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   credit_approval: 690 × 15, 2 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   credit_g: 1000 × 20, 2 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   postoperative_patient_data: 90 × 8, 4 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   soybean: 683 × 35, 19 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   tae: 151 × 5, 3 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   heart_c: 303 × 13, 2 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   heart_h: 294 × 13, 2 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   heart_statlog: 270 × 13, 2 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   hepatitis: 155 × 19, 2 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   vote: 435 × 16, 2 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   hypothyroid: 2000 × 29, 4 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   waveform_5000: 2000 × 40, 3 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   bng(tic_tac_toe): 2000 × 9, 2 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   molecular_biology_promoters: 106 × 57, 2 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   primary_tumor: 339 × 17, 21 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   kropt: 2000 × 6, 18 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   baseball: 1340 × 16, 3 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   braziltourism: 412 × 8, 7 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   eucalyptus: 736 × 19, 5 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   bng(breast_w): 2000 × 9, 2 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   meta_all_arff: 71 × 62, 6 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   meta_batchincremental_arff: 74 × 62, 4 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   meta_ensembles_arff: 74 × 62, 4 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   meta_instanceincremental_arff: 74 × 62, 4 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   meta_stream_intervals_arff: 2000 × 74, 11 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   flags: 194 × 28, 8 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   mammography: 2000 × 6, 2 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   oil_spill: 937 × 49, 2 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   scene: 2000 × 299, 2 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   spectrometer: 531 × 101, 48 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   yeast_ml8: 2000 × 116, 2 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   bridges: 105 × 11, 6 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   monks_problems_1: 556 × 6, 2 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   monks_problems_2: 601 × 6, 2 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   monks_problems_3: 554 × 6, 2 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   spect: 267 × 22, 2 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   spectf: 349 × 44, 2 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   grub_damage: 155 × 8, 4 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   squash_stored: 52 × 24, 3 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   squash_unstored: 52 × 23, 3 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   white_clover: 63 × 31, 4 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   aids: 50 × 4, 2 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   internet_usage: 2000 × 71, 46 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   unix_user_data: 2000 × 2, 9 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   syskillwebert_biomedical: 131 × 2, 3 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   japanesevowels: 2000 × 14, 9 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   syskillwebert_sheep: 65 × 2, 2 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   synthetic_control: 600 × 60, 6 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   ipums_la_99_small: 2000 × 60, 7 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   syskillwebert_goats: 70 × 2, 3 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   syskillwebert_bands: 61 × 2, 3 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   ipums_la_98_small: 2000 × 60, 7 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   ipums_la_97_small: 2000 × 60, 8 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   analcatdata_broadway: 95 × 7, 5 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   analcatdata_boxing2: 132 × 3, 2 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   prnn_crabs: 200 × 7, 2 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   analcatdata_boxing1: 120 × 3, 2 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   analcatdata_lawsuit: 264 × 4, 2 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   irish: 500 × 5, 2 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   analcatdata_broadwaymult: 285 × 7, 7 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   analcatdata_bondrate: 57 × 10, 5 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   analcatdata_halloffame: 1340 × 16, 3 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   cars: 406 × 7, 3 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   analcatdata_authorship: 841 × 70, 4 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   analcatdata_asbestos: 83 × 3, 2 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   analcatdata_creditscore: 100 × 6, 2 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   backache: 180 × 31, 2 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   prnn_synth: 250 × 2, 2 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   analcatdata_cyyoung8092: 97 × 10, 2 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   schizo: 340 × 13, 2 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   analcatdata_japansolvent: 52 × 8, 2 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   confidence: 72 × 3, 6 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   analcatdata_dmft: 797 × 4, 6 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   profb: 672 × 9, 2 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   lupus: 87 × 3, 2 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   cjs: 2000 × 34, 6 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   analcatdata_germangss: 400 × 5, 4 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   analcatdata_bankruptcy: 50 × 5, 2 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   fl2000: 67 × 15, 5 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   analcatdata_cyyoung9302: 92 × 9, 2 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   prnn_viruses: 61 × 18, 4 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   biomed: 209 × 8, 2 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   colleges_aaup: 1161 × 14, 4 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   rmftsa_sleepdata: 1024 × 2, 4 classes
+2026-03-26 22:04:10 | INFO     | pipeline |   sleuth_ex2016: 87 × 10, 2 classes
+2026-03-26 22:04:10 | INFO     | pipeline | Building meta-dataset...
