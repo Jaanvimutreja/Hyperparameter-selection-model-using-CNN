@@ -1,0 +1,49 @@
+{
+  "per_dataset": {
+    "breast_cancer": {
+      "true_best_index": 30,
+      "true_best_algo": "LogisticRegression",
+      "true_best_accuracy": 0.9860000000000001,
+      "pred_index": 7,
+      "pred_algo": "SVM",
+      "pred_accuracy": 0.9719999999999999,
+      "pred_confidence": 1.0,
+      "random_mean_accuracy": 0.9722,
+      "cnn_regret": 0.014000000000000234,
+      "random_regret": 0.013800000000000145,
+      "match": false,
+      "algo_match": false,
+      "nearest_datasets": [
+        "wine",
+        "iris"
+      ]
+    },
+    "glass": {
+      "true_best_index": 17,
+      "true_best_algo": "RandomForest",
+      "true_best_accuracy": 0.7900332225913622,
+      "pred_index": 4,
+      "pred_algo": "SVM",
+      "pred_accuracy": 0.6966777408637873,
+      "pred_confidence": 0.9840511679649353,
+      "random_mean_accuracy": 0.7142524916943522,
+      "cnn_regret": 0.09335548172757491,
+      "random_regret": 0.07578073089700998,
+      "match": false,
+      "algo_match": false,
+      "nearest_datasets": [
+        "wine",
+        "iris"
+      ]
+    }
+  },
+  "aggregate": {
+    "recommendation_accuracy": 0.0,
+    "algorithm_selection_accuracy": 0.0,
+    "mrr": 0.06971153846153846,
+    "hit_rate_at_1": 0.0,
+    "hit_rate_at_3": 0.0,
+    "mean_cnn_regret": 0.05367774086378757,
+    "mean_random_regret": 0.044790365448505065
+  }
+}

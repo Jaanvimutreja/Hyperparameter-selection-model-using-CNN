@@ -1,0 +1,41 @@
+{
+  "results": [
+    {
+      "dataset": "breast_cancer",
+      "best_config": "LogisticRegression(C=10.0)",
+      "best_accuracy": 0.9860000000000001,
+      "cnn_config": "SVM(C=10, gamma=0.1)",
+      "cnn_accuracy": 0.9719999999999999,
+      "cnn_confidence": 1.0,
+      "random_accuracy": 0.9722,
+      "cnn_regret": 0.014000000000000234,
+      "random_regret": 0.013800000000000145,
+      "exact_match": false,
+      "algo_match": false
+    },
+    {
+      "dataset": "glass",
+      "best_config": "RandomForest(n_estimators=200, max_depth=None)",
+      "best_accuracy": 0.7900332225913622,
+      "cnn_config": "SVM(C=1, gamma=0.1)",
+      "cnn_accuracy": 0.6966777408637873,
+      "cnn_confidence": 0.9840500950813293,
+      "random_accuracy": 0.7142524916943522,
+      "cnn_regret": 0.09335548172757491,
+      "random_regret": 0.07578073089700998,
+      "exact_match": false,
+      "algo_match": false
+    }
+  ],
+  "summary": {
+    "recommendation_accuracy": 0.0,
+    "algorithm_selection_accuracy": 0.0,
+    "mrr": 0.06971153846153846,
+    "hit_rate_at_1": 0.0,
+    "hit_rate_at_3": 0.0,
+    "mean_cnn_accuracy": 0.8343388704318936,
+    "mean_random_accuracy": 0.8432262458471761,
+    "mean_cnn_regret": 0.05367774086378757,
+    "mean_random_regret": 0.044790365448505065
+  }
+}
