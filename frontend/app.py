@@ -337,8 +337,10 @@ with tab_interactive_pipeline:
         if target.dtype == object or str(target.dtype) == "category":
             le = LabelEncoder()
             target = le.fit_transform(target.astype(str))
-            
-        X = np.nan_to_num(features.values.astype(np.float64))
+        features = features.apply(pd.to_numeric, errors='coerce')
+        features = features.fillna(0)
+        X = features.values.astype(np.float64)    
+        
         y = np.array(target, dtype=np.int64)
         X = StandardScaler().fit_transform(X)
         
