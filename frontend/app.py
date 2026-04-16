@@ -499,6 +499,11 @@ with tab_knowledge:
     st.markdown('<div class="info-box">The Knowledge Base acts as the "Long Term Memory" for HPSM. Every dataset it studies is documented here along with its absolute optimal algorithm so that the Nearest-Neighbor algorithms can help with prediction.</div>', unsafe_allow_html=True)
 
     from backend.knowledge_base import load_knowledge_base, get_summary
+    # from backend.knowledge_base import load_knowledge_base, get_summary
+
+    st.cache_data.clear()  
+
+
     kb = load_knowledge_base()
     if not kb:
         st.info("Knowledge engine is currently empty.")
