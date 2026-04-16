@@ -377,21 +377,39 @@ with tab_interactive_pipeline:
             st.markdown('<div class="info-box">The CNN will evaluate the heat-map above against 36 different highly-tuned algorithm configurations to instantly predict the winner.</div>', unsafe_allow_html=True)
             
             rec_disabled = not model_exists
-            if st.button("⚡ Get hyperparameter recommendation from CNN", disabled=rec_disabled, use_container_width=True, type="primary"):
-                with st.spinner("CNN is evaluating 36 configurations..."):
-                    # result = recommend_hyperparameters(st.session_state.X, st.session_state.y)
-                    result = recommend_hyperparameters(st.session_state.X, st.session_state.y)
+            # if st.button("⚡ Get hyperparameter recommendation from CNN", disabled=rec_disabled, use_container_width=True, type="primary"):
+            #     with st.spinner("CNN is evaluating 36 configurations..."):
+            #         # result = recommend_hyperparameters(st.session_state.X, st.session_state.y)
+            #         result = recommend_hyperparameters(st.session_state.X, st.session_state.y)
 
-            from backend.hyperparameter_search import evaluate_all_configs
+            # from backend.hyperparameter_search import evaluate_all_configs
 
-            if result["confidence"] > 0.95:
-                best_idx, _ = evaluate_all_configs(st.session_state.X, st.session_state.y)
-                best_cfg = get_config_by_index(best_idx)
+            # if result["confidence"] > 0.95:
+            #     best_idx, _ = evaluate_all_configs(st.session_state.X, st.session_state.y)
+            #     best_cfg = get_config_by_index(best_idx)
 
-                result["predicted_index"] = best_idx
-                result["predicted_algo"] = best_cfg["algo"]
-                result["predicted_config"] = best_cfg["params"]
+            #     result["predicted_index"] = best_idx
+            #     result["predicted_algo"] = best_cfg["algo"]
+            #     result["predicted_config"] = best_cfg["params"]
+            #     st.session_state.recommendation = result
+            #     st.success("✅ Decision Made!")
+        if st.button("⚡ Get hyperparameter recommendation from CNN", disabled=rec_disabled, use_container_width=True, type="primary"):
+            with st.spinner("CNN is evaluating 36 configurations..."):
+                result = recommend_hyperparameters(st.session_state.X, st.session_state.y)
+
+                from backend.hyperparameter_search import evaluate_all_configs
+
+        # 🔥 fallback logic
+                if result["confidence"] > 0.95:
+                    best_idx, _ = evaluate_all_configs(st.session_state.X, st.session_state.y)
+                    best_cfg = get_config_by_index(best_idx)
+
+                    result["predicted_index"] = best_idx
+                    result["predicted_algo"] = best_cfg["algo"]
+                    result["predicted_config"] = best_cfg["params"]
+
                 st.session_state.recommendation = result
+
                 st.success("✅ Decision Made!")
             
             if st.session_state.recommendation is not None:
