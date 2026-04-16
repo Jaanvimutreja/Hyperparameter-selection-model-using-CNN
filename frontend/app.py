@@ -385,14 +385,14 @@ with tab_interactive_pipeline:
             from backend.hyperparameter_search import evaluate_all_configs
 
             if result["confidence"] > 0.95:
-            best_idx, _ = evaluate_all_configs(st.session_state.X, st.session_state.y)
-            best_cfg = get_config_by_index(best_idx)
+                best_idx, _ = evaluate_all_configs(st.session_state.X, st.session_state.y)
+                best_cfg = get_config_by_index(best_idx)
 
-            result["predicted_index"] = best_idx
-            result["predicted_algo"] = best_cfg["algo"]
-            result["predicted_config"] = best_cfg["params"]
-            st.session_state.recommendation = result
-            st.success("✅ Decision Made!")
+                result["predicted_index"] = best_idx
+                result["predicted_algo"] = best_cfg["algo"]
+                result["predicted_config"] = best_cfg["params"]
+                st.session_state.recommendation = result
+                st.success("✅ Decision Made!")
             
             if st.session_state.recommendation is not None:
                 result = st.session_state.recommendation
