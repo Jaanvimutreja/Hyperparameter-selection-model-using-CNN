@@ -376,7 +376,7 @@ with tab_interactive_pipeline:
             st.markdown('<div class="step-container"><div class="step-title">🧠 Step 3: Ask the AI for the Best Model</div>', unsafe_allow_html=True)
             st.markdown('<div class="info-box">The CNN will evaluate the heat-map above against 36 different highly-tuned algorithm configurations to instantly predict the winner.</div>', unsafe_allow_html=True)
             
-            rec_disabled = not model_exists
+            
             # if st.button("⚡ Get hyperparameter recommendation from CNN", disabled=rec_disabled, use_container_width=True, type="primary"):
             #     with st.spinner("CNN is evaluating 36 configurations..."):
             #         # result = recommend_hyperparameters(st.session_state.X, st.session_state.y)
@@ -393,6 +393,7 @@ with tab_interactive_pipeline:
             #     result["predicted_config"] = best_cfg["params"]
             #     st.session_state.recommendation = result
             #     st.success("✅ Decision Made!")
+        rec_disabled = not model_exists
         if st.button("⚡ Get hyperparameter recommendation from CNN", disabled=rec_disabled, use_container_width=True, type="primary"):
             with st.spinner("CNN is evaluating 36 configurations..."):
                 result = recommend_hyperparameters(st.session_state.X, st.session_state.y)
