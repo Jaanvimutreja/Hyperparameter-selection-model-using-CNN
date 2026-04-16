@@ -379,9 +379,20 @@ with tab_interactive_pipeline:
             rec_disabled = not model_exists
             if st.button("⚡ Get hyperparameter recommendation from CNN", disabled=rec_disabled, use_container_width=True, type="primary"):
                 with st.spinner("CNN is evaluating 36 configurations..."):
+                    # result = recommend_hyperparameters(st.session_state.X, st.session_state.y)
                     result = recommend_hyperparameters(st.session_state.X, st.session_state.y)
-                    st.session_state.recommendation = result
-                st.success("✅ Decision Made!")
+
+            from backend.hyperparameter_search import evaluate_all_configs
+
+            if result["confidence"] > 0.95:
+            best_idx, _ = evaluate_all_configs(st.session_state.X, st.session_state.y)
+            best_cfg = get_config_by_index(best_idx)
+
+            result["predicted_index"] = best_idx
+            result["predicted_algo"] = best_cfg["algo"]
+            result["predicted_config"] = best_cfg["params"]
+            st.session_state.recommendation = result
+            st.success("✅ Decision Made!")
             
             if st.session_state.recommendation is not None:
                 result = st.session_state.recommendation

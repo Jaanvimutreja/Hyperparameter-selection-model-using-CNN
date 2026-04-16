@@ -106,41 +106,58 @@ def run_pipeline():
     # ==================================================================
     # STEP 3 — Build meta-dataset (features + multi-algorithm HP search)
     # ==================================================================
+    # print(f"\n{'─' * 50}")
+    # print("  STEP 3/10 — Meta-features + Multi-algorithm HP search")
+    # print(f"{'─' * 50}")
+    # logger.info("Building meta-dataset...")
+    # matrices, labels, hp_info = build_meta_dataset(train_data)
+    # logger.info(f"Built {len(matrices)} meta-samples")
+
+    # if len(matrices) == 0:
+    #     logger.error("No meta-samples built. Aborting.")
+    #     return
+
+    # # Save HP search results to CSV
+    # hp_rows = []
+    # for name, info in hp_info.items():
+    #     cfg = info["best_config"]
+    #     hp_rows.append({
+    #         "dataset": name,
+    #         "best_index": info["best_index"],
+    #         "algorithm": cfg["algo"],
+    #         "params": str(cfg["params"]),
+    #         "best_accuracy": info["best_accuracy"],
+    #     })
+    # _save_csv(hp_rows, "hyperparameter_results.csv",
+    #           ["dataset", "best_index", "algorithm", "params", "best_accuracy"])
+
+    # # Save meta-features to CSV
+    # mf_rows = []
+    # for name, mat in zip(hp_info.keys(), matrices):
+    #     row = {"dataset": name}
+    #     for i, val in enumerate(mat.flatten()):
+    #         row[f"f_{i}"] = float(val)
+    #     mf_rows.append(row)
+    # if mf_rows:
+    #     _save_csv(mf_rows, "meta_features.csv", list(mf_rows[0].keys()))
+    # ==================================================================
+    # STEP 3 — Build meta-dataset (features + multi-algorithm HP search)
+    # ==================================================================
     print(f"\n{'─' * 50}")
     print("  STEP 3/10 — Meta-features + Multi-algorithm HP search")
     print(f"{'─' * 50}")
     logger.info("Building meta-dataset...")
+
     matrices, labels, hp_info = build_meta_dataset(train_data)
     logger.info(f"Built {len(matrices)} meta-samples")
 
+    # 🔥 DEBUG: Label distribution check (IMPORTANT)
+    from collections import Counter
+    print("🔥 Label Distribution:", Counter(labels))
+
     if len(matrices) == 0:
         logger.error("No meta-samples built. Aborting.")
-        return
-
-    # Save HP search results to CSV
-    hp_rows = []
-    for name, info in hp_info.items():
-        cfg = info["best_config"]
-        hp_rows.append({
-            "dataset": name,
-            "best_index": info["best_index"],
-            "algorithm": cfg["algo"],
-            "params": str(cfg["params"]),
-            "best_accuracy": info["best_accuracy"],
-        })
-    _save_csv(hp_rows, "hyperparameter_results.csv",
-              ["dataset", "best_index", "algorithm", "params", "best_accuracy"])
-
-    # Save meta-features to CSV
-    mf_rows = []
-    for name, mat in zip(hp_info.keys(), matrices):
-        row = {"dataset": name}
-        for i, val in enumerate(mat.flatten()):
-            row[f"f_{i}"] = float(val)
-        mf_rows.append(row)
-    if mf_rows:
-        _save_csv(mf_rows, "meta_features.csv", list(mf_rows[0].keys()))
-
+    return
     # ==================================================================
     # STEP 4 — Build knowledge base
     # ==================================================================

@@ -154,6 +154,8 @@ def train_model(matrices, labels, epochs=CNN_EPOCHS, lr=CNN_LEARNING_RATE,
     optimizer = optim.Adam(model.parameters(), lr=lr, weight_decay=weight_decay)
     scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=epochs, eta_min=lr * 0.01)
     criterion = nn.CrossEntropyLoss()
+    # 🔥 ADDED: prevent overconfidence
+    criterion = nn.CrossEntropyLoss(label_smoothing=0.1)
 
     history = {"loss": [], "accuracy": []}
 
@@ -226,5 +228,11 @@ if __name__ == "__main__":
     aug_m, aug_l = augment_data(matrices, labels)
 
     print(f"\nTraining on {len(aug_m)} augmented samples...")
+    import numpy as np
+    indices = np.arange(len(aug_m))
+    np.random.shuffle(indices)
+
+    aug_m = np.array(aug_m)[indices]
+    aug_l = np.array(aug_l)[indices]
     model, history = train_model(aug_m, aug_l)
     save_model(model)
